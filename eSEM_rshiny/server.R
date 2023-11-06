@@ -1,0 +1,32 @@
+
+# options(repos = BiocManager::repositories())
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#   install.packages("BiocManager")
+# BiocManager::install()
+
+source(file = "global.R",
+       local = TRUE,
+       encoding = "UTF-8")
+
+shinyServer(function(input,output,session){
+  options(shiny.maxRequestSize = 500 * (1024 ^ 2))
+  
+  variables = reactiveValues(
+    #KSEM
+    eSEMRaw = data.frame(),
+    eSEMnorm = data.frame()
+  )
+  
+  source(file = "eSEM.R",
+         local = TRUE,
+         encoding = "UTF-8")
+
+
+})
+
+
+
+
+
+
+
