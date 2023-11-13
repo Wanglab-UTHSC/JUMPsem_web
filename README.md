@@ -2,6 +2,7 @@
 
 This is an web page application for the package **[eSEM](https://github.com/Wanglab-UTHSC/eSEM)** developed by our lab.
 Latest local version is available on the github.
+The online version is available on shinyapps.io. [link](https://esem.shinyapps.io/eSEM_rshiny/)
 
 ---
 
@@ -11,7 +12,7 @@ Latest local version is available on the github.
 ## eSEM Analysis: User Guide
 
 ---
-In this **online version of eSEM package**, users could easily set up parameters just as in the packages. Whaat's more, it also provides plotting options for users to directly visualize the results.   
+In this **online version of eSEM package**, users could easily set up parameters just as in the packages. Whaat's more, it also provides plotting options for users to directly visualize the results.  
 
 ## Steps(Example)
 
