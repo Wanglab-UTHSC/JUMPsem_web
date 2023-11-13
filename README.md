@@ -2,7 +2,8 @@
 
 This is an web page application for the package **[eSEM](https://github.com/Wanglab-UTHSC/eSEM)** developed by our lab.
 Latest local version is available on the github.
-The online version is available on shinyapps.io. [link](https://esem.shinyapps.io/eSEM_rshiny/)
+
+The [online version](https://esem.shinyapps.io/eSEM_rshiny/) is available on shinyapps.io.
 
 ---
 
