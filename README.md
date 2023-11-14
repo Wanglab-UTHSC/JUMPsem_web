@@ -13,7 +13,7 @@ The [online version](https://esem.shinyapps.io/eSEM_rshiny/) is available on shi
 ## eSEM Analysis: User Guide
 
 ---
-In this **online version of eSEM package**, users could easily set up parameters just as in the packages. Whaat's more, it also provides plotting options for users to directly visualize the results.  
+In this **online version of eSEM package**, users could easily set up parameters just as in the packages. What's more, it also provides plotting options for users to directly visualize the results.  
 
 ## Steps(Example)
 
