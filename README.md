@@ -30,7 +30,7 @@ In this **online version of eSEM package**, users could easily set up parameters
 ## Steps(General)
 
 1.  Click `Sample` tab.
-2.  Select data type and upload your substrate data. (**necessary**)
+2.  Select data type and upload your substrate data. (**required**)
 3.  If you have group information file, please upload under `Group Inforamtion(Optional)`.
 4.  If you need whole proteomics data to normalize, please upload under `normalization data(optional)`.
 5.  Species of substrate is **required** to select under `Parameters`.
