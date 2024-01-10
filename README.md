@@ -1,9 +1,9 @@
 # JUMPsem_web
 
-This is a web page application for the package **[JUMPsem](https://github.com/Wanglab-UTHSC/eSEM)** developed by our lab.
+This is a web page application for the package **[JUMPsem](https://github.com/Wanglab-UTHSC/JUMPsem)** developed by our lab.
 Latest local version is available on the github.
 
-The [online version](https://esem.shinyapps.io/eSEM_rshiny/) is available on shinyapps.io.
+The [online version](https://jumpsem.shinyapps.io/JUMPsem/) is available on shinyapps.io.
 
 ---
 
