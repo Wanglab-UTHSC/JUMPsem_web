@@ -1,19 +1,19 @@
-# eSEM_web
+# JUMPsem_web
 
-This is an web page application for the package **[eSEM](https://github.com/Wanglab-UTHSC/eSEM)** developed by our lab.
+This is a web page application for the package **[JUMPsem](https://github.com/Wanglab-UTHSC/eSEM)** developed by our lab.
 Latest local version is available on the github.
 
 The [online version](https://esem.shinyapps.io/eSEM_rshiny/) is available on shinyapps.io.
 
 ---
 
-# About eSEM package
-**[eSEM]** is a R package infering enzyme activity from phosphoralation, ubiquitination, acetylation.
+# About JUMPsem package
+**[JUMPsem]** is a R package infering enzyme activity from phosphoralation, ubiquitination, acetylation.
 
-## eSEM Analysis: User Guide
+## JUMPsem Analysis: User Guide
 
 ---
-In this **online version of eSEM package**, users could easily set up parameters just as in the packages. What's more, it also provides plotting options for users to directly visualize the results.  
+In this **online version of JUMPsem package**, users could easily set up parameters just as in the packages. What's more, it also provides plotting options for users to directly visualize the results.  
 
 ## Steps(Example)
 
@@ -35,6 +35,6 @@ In this **online version of eSEM package**, users could easily set up parameters
 4.  If you need whole proteomics data to normalize, please upload under `normalization data(optional)`.
 5.  Species of substrate is **required** to select under `Parameters`.
 6.  Additional parameters in the package could be adjusted under `Advanced Parameters`.
-7.  Click `Run eSEM Analysis` and wait for result!
+7.  Click `Run JUMPsem Analysis` and wait for result!
 
 ---
