@@ -1,0 +1,13 @@
+name: eSEM_rshiny
+title: eSEM_rshiny
+username: esem
+account: esem
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 10448077
+bundleId: 8074470
+url: https://esem.shinyapps.io/eSEM_rshiny/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Activity_MeanCenter.txt|Activity_Raw.txt|Activity_Zscore.txt|Affinity.txt
