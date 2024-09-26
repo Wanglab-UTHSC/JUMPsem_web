@@ -5,76 +5,77 @@ library(JUMPsem)
 options(scipen=999)
 
 #Retrive the user upload raw data
-eSEMRun <- reactiveValues(eSEMRunValue = FALSE)
+jumpsemRun <- reactiveValues(jumpsemRunValue = FALSE)
 
 #load the user selected data type
-dataType <- reactive(input$eSEMdataType)
+dataType <- reactive(input$jumpsemdataType)
 
 
 #If user wants to load example data
 
 #Hide other tabs when clicking on Example data
 observe({
-  if(input$eSEMdataSource == "Sample Data"){
+  if(input$jumpsemdataSource == "Sample Data"){
     shinyjs::show(selector = ".rowhide")
-    variables$eSEMRaw <- data.frame()
-    eSEMRun$eSEMRunValue <- FALSE
+    variables$jumpsemRaw <- data.frame()
+    jumpsemRun$jumpsemRunValue <- FALSE
     
   }else{
     shinyjs::hide(selector = ".rowhide")
-    if(input$eSEMSampleData == "pspSample"){
-      variables$eSEMRaw <- input_psp_example_T
-    }else if(input$eSEMSampleData == "ubiSample"){
-      variables$eSEMRaw <- input_ubi_example_T
+    if(input$jumpsemSampleData == "pspSample"){
+      variables$jumpsemRaw <- input_psp_example_T
+    }else if(input$jumpsemSampleData == "ubiSample"){
+      variables$jumpsemRaw <- input_ubi_example_T
     }else{
       data <- input_ace_example_T
       temp <- data[,4:ncol(data)]
       temp <- temp %>% mutate_if(is.character,as.numeric)
-      variables$eSEMRaw <- cbind(data[,1:3],temp)
+      variables$jumpsemRaw <- cbind(data[,1:3],temp)
     }
-    eSEMRun$eSEMRunValue <- FALSE
+    jumpsemRun$jumpsemRunValue <- FALSE
   } 
 })
 
 
 
 
-#process the eSEM analysis directly
-observeEvent(input$eSEMDataSampleRun,{
+#process the jumpsem analysis directly
+observeEvent(input$jumpsemDataSampleRun,{
   
   #load sample data
   #run Sample result
   
   progressSweetAlert(
     session = session,
-    id = "eSEMSampleProgress",
+    id = "jumpsemSampleProgress",
     title = "Read in raw data",
     display_pct = TRUE,
     value = 0
   )
   updateProgressBar(
     session = session,
-    id = "eSEMSampleProgress",
-    title = "Run eSEM analysis",
+    id = "jumpsemSampleProgress",
+    title = "Run JUMPsem analysis",
     value = 30
   )
   
-  if(input$eSEMSampleData == "pspSample"){
-    result <- JUMPsem(input = input_psp_example_T,
-                   datatype = "psp",
-                   organism = "mouse",
-                   enzyme.organism = c("human", "mouse", "rat"),
-                   input.log2.norm = TRUE,
-                   whole.log2.trans = TRUE,
-                   motif = motif_example,
-                   whole.proteome = wholeProteome_example)
-  }else if(input$eSEMSampleData == "ubiSample"){
-    result <- JUMPsem(input = input_ubi_example_T,
+  if(input$jumpsemSampleData == "pspSample"){
+    result <- JUMPsem(input = variables$jumpsemRaw,
+                      datatype = "psp",
+                      organism = "mouse",
+                      enzyme.organism = c("human", "mouse", "rat"),
+                      cor.off = 0.8,
+                      input.log2.norm = TRUE,
+                      whole.log2.trans = TRUE,
+                      motif = motif_example,
+                      whole.proteome = wholeProteome_example)
+  }else if(input$jumpsemSampleData == "ubiSample"){
+    result <- JUMPsem(input = variables$jumpsemRaw,
                    datatype = "ubi",
                    organism = "human",
                    input.log2.norm = T)
   }else{
-    result <- JUMPsem(input = input_ace_example_T,
+    result <- JUMPsem(input = variables$jumpsemRaw,
                    datatype = "ace",
                    organism = "human",
                    input.log2.norm = FALSE)
@@ -82,7 +83,7 @@ observeEvent(input$eSEMDataSampleRun,{
   
   updateProgressBar(
     session = session,
-    id = "eSEMSampleProgress",
+    id = "jumpsemSampleProgress",
     title = "Process Results",
     value = 50
   )
@@ -95,7 +96,7 @@ observeEvent(input$eSEMDataSampleRun,{
   
   updateProgressBar(
     session = session,
-    id = "eSEMSampleProgress",
+    id = "jumpsemSampleProgress",
     title = "Save Results",
     value = 60
   )
@@ -109,7 +110,7 @@ observeEvent(input$eSEMDataSampleRun,{
   
   updateProgressBar(
     session = session,
-    id = "eSEMSampleProgress",
+    id = "jumpsemSampleProgress",
     title = "Format Activity Raw Table",
     value = 70
   )
@@ -169,7 +170,7 @@ observeEvent(input$eSEMDataSampleRun,{
   
   updateProgressBar(
     session = session,
-    id = "eSEMSampleProgress",
+    id = "jumpsemSampleProgress",
     title = "Activity Meancenter",
     value = 80
   )
@@ -224,7 +225,7 @@ observeEvent(input$eSEMDataSampleRun,{
   
   updateProgressBar(
     session = session,
-    id = "eSEMSampleProgress",
+    id = "jumpsemSampleProgress",
     title = "Activity Zscore",
     value = 90
   )
@@ -277,7 +278,7 @@ observeEvent(input$eSEMDataSampleRun,{
   
   updateProgressBar(
     session = session,
-    id = "eSEMSampleProgress",
+    id = "jumpsemSampleProgress",
     title = "Affinity",
     value = 100
   )
@@ -329,30 +330,30 @@ observeEvent(input$eSEMDataSampleRun,{
     }
   })
   
-  eSEMRun$eSEMRunValue <- input$eSEMDataSampleRun
+  jumpsemRun$jumpsemRunValue <- input$jumpsemDataSampleRun
   
   closeSweetAlert(session = session)
   sendSweetAlert(
     session = session,
     title = "DONE",
-    text = "eSEM analysis done.",
+    text = "JUMPsem analysis done.",
     type = "success"
   )
 })
 
 
 #upload the substrate data
-observeEvent(input$uploadeSEMSubstrateData,{
+observeEvent(input$uploadjumpsemSubstrateData,{
   #show notification of uploading
   showNotification("Start uploading file...", type = "message")
   
   tryCatch({
     #read in uploaded substrate raw data
     subrawdata <-
-      data.frame(fread(input$uploadeSEMSubstrateData$datapath))
+      data.frame(fread(input$uploadjumpsemSubstrateData$datapath))
     
     #check if sample values are numeric
-    if(input$eSEMdataType == "ace"){
+    if(input$jumpsemdataType == "ace"){
       temp <- subrawdata[,4:ncol(subrawdata)]
       temp <- temp %>% mutate_if(is.character,as.numeric)
       subrawdata <- cbind(subrawdata[,1:3],temp)
@@ -365,10 +366,10 @@ observeEvent(input$uploadeSEMSubstrateData,{
     #omit NA values
     #subrawdata<- na.omit(subrawdata)
     
-    #write.csv(subrawdata,"eSEMraw.csv")
-    eSEMRun$eSEMRunValue <- FALSE
+    #write.csv(subrawdata,"jumpsemraw.csv")
+    jumpsemRun$jumpsemRunValue <- FALSE
     
-    variables$eSEMRaw <- subrawdata
+    variables$jumpsemRaw <- subrawdata
     showNotification("Received uploaded file.", type = "message")
   },
   error = function(e) {
@@ -393,8 +394,8 @@ observeEvent(input$uploadeSEMSubstrateData,{
   )
   
 })
-# eSEMdataInput <- reactive({
-#   variables$eSEMRaw
+# jumpsemdataInput <- reactive({
+#   variables$jumpsemRaw
 # })
 
 
@@ -406,17 +407,17 @@ observeEvent(input$uploadWholeProteomicsData,{
   tryCatch(
     {
       #read in uploaded normalization data
-      eSEMnorm <- data.frame(fread(input$uploadWholeProteomicsData$datapath))
+      jumpsemnorm <- data.frame(fread(input$uploadWholeProteomicsData$datapath))
       
       #omit NA values
-      eSEMnorm <- na.omit(eSEMnorm)
+      jumpsemnorm <- na.omit(jumpsemnorm)
       
       #check data
-      #write.csv(eSEMnorm,"test/eSEMnorm.csv")
-      eSEMRun$eSEMRunValue <- FALSE
+      #write.csv(jumpsemnorm,"test/jumpsemnorm.csv")
+      jumpsemRun$jumpsemRunValue <- FALSE
       
       #store in variables
-      variables$eSEMnorm <- eSEMnorm
+      variables$jumpsemnorm <- jumpsemnorm
       showNotification("Received uploaded file.", type = "message")
       
     },
@@ -447,7 +448,7 @@ observeEvent(input$uploadWholeProteomicsData,{
 
 # Render a table of raw substrate data, adding color ----
 output$rawTable <- DT::renderDataTable({
-  df <- variables$eSEMRaw 
+  df <- variables$jumpsemRaw 
   
   brks <-
     quantile(df %>% select_if(is.numeric),
@@ -477,8 +478,8 @@ output$rawTable <- DT::renderDataTable({
 
 # Render datatable in UI of row substrate data ----
 
-output$eSEMRawTable <- renderUI({
-  if (nrow(variables$eSEMRaw) == 0) {
+output$jumpsemRawTable <- renderUI({
+  if (nrow(variables$jumpsemRaw) == 0) {
     tags$p("No data to show. Click",tags$code("Upload"), "your own dataset.")
   } else {
     DT::dataTableOutput("rawTable")
@@ -487,8 +488,8 @@ output$eSEMRawTable <- renderUI({
 
 
 #----------Group info(optional)------------
-observeEvent(input$uploadeSEMGroup,{
-  # if (nrow(variables$eSEMRaw) == 0) {
+observeEvent(input$uploadjumpsemGroup,{
+  # if (nrow(variables$jumpsemRaw) == 0) {
   #   sendSweetAlert(
   #     session = session,
   #     title = "ERROR",
@@ -501,12 +502,12 @@ observeEvent(input$uploadeSEMGroup,{
   tryCatch(
     {
       #read in uploaded group information
-      eSEMgroup <- data.frame(fread(input$uploadeSEMGroup$datapath))
+      jumpsemgroup <- data.frame(fread(input$uploadjumpsemGroup$datapath))
       
-      eSEMRun$eSEMRunValue <- FALSE
+      jumpsemRun$jumpsemRunValue <- FALSE
       
       #store in variables
-      variables$eSEMgroup <- eSEMgroup
+      variables$jumpsemgroup <- jumpsemgroup
       showNotification("Received uploaded file.", type = "message")
       
     },
@@ -536,18 +537,18 @@ observeEvent(input$uploadeSEMGroup,{
 
 #-----------Result----------
 #Activity Result
-#Import eSEM function
+#Import jumpsem function
 
-#if run eSEM button is clicked, check parameters.
-observeEvent(input$runeSEM,{
+#if run jumpsem button is clicked, check parameters.
+observeEvent(input$runjumpsem,{
   #obtain parameters
-  organism <- input$eSEMorg
-  coroff <- input$eSEMcoroff
-  kmooff <- input$eSEMkmooff
-  dtype <- input$eSEMdataType
-  inputLog2 <- input$eSEMlog2 == "Yes"
-  inputwholeLog2 <- input$eSEMWholelog2 == "Yes"
-  checkwhole <- ifelse(nrow(variables$eSEMnorm) == 0,yes = "None", no = "Yes")
+  organism <- input$jumpsemorg
+  coroff <- input$jumpsemcoroff
+  kmooff <- input$jumpsemkmooff
+  dtype <- input$jumpsemdataType
+  inputLog2 <- input$jumpsemlog2 == "Yes"
+  inputwholeLog2 <- input$jumpsemWholelog2 == "Yes"
+  checkwhole <- ifelse(nrow(variables$jumpsemnorm) == 0,yes = "None", no = "Yes")
   
   
   #show modal when button is clicked
@@ -560,9 +561,9 @@ observeEvent(input$runeSEM,{
     tags$p(tags$b("Whole Proteome"),": ", checkwhole),
     tags$p(tags$b("Correlation Cutoff"),": ", coroff),
     tags$p(tags$b("KMO Cutoff"),": ", kmooff),
-    tags$p(tags$b("Need substrate data log 2 transformation?"), input$eSEMlog2),
-    tags$p(tags$b("Need whole proteome data log 2 transformation?"), input$eSEMWholelog2),
-    span("Click ",tags$b("Cancel "), "to modify your choice or ", tags$b("Submit "), "to run eSEM analysis."),
+    tags$p(tags$b("Need substrate data log 2 transformation?"), input$jumpsemlog2),
+    tags$p(tags$b("Need whole proteome data log 2 transformation?"), input$jumpsemWholelog2),
+    span("Click ",tags$b("Cancel "), "to modify your choice or ", tags$b("Submit "), "to run jumpsem analysis."),
     
     easyClose = T,
     fade = T,
@@ -579,24 +580,24 @@ observeEvent(input$submit,{
   removeModal()
   progressSweetAlert(
     session = session,
-    id = "eSEMProgress",
+    id = "jumpsemProgress",
     title = "Read in raw data",
     display_pct = TRUE,
     value = 0
   )
   
   #obtain substrate data
-  rawdata <- variables$eSEMRaw
+  rawdata <- variables$jumpsemRaw
   
   updateProgressBar(
     session = session,
-    id = "eSEMProgress",
+    id = "jumpsemProgress",
     title = "Check whole proteomics data",
     value = 20
   )
   #obtain whole proteomics data if possible
-  if(nrow(variables$eSEMnorm) != 0){
-    wholePro <- variables$eSEMnorm
+  if(nrow(variables$jumpsemnorm) != 0){
+    wholePro <- variables$jumpsemnorm
   }else{
     wholePro <- NULL
   }
@@ -612,13 +613,13 @@ observeEvent(input$submit,{
   }
   updateProgressBar(
     session = session,
-    id = "eSEMProgress",
+    id = "jumpsemProgress",
     title = "Check substrate data",
     value = 20
   )
   updateProgressBar(
     session = session,
-    id = "eSEMProgress",
+    id = "jumpsemProgress",
     title = "Read in parameters",
     value = 40
   )
@@ -626,23 +627,23 @@ observeEvent(input$submit,{
   
   
   #obtain parameters
-  organism <- input$eSEMorg
-  coroff <- input$eSEMcoroff
-  kmooff <- input$eSEMkmooff
-  dtype <- input$eSEMdataType
-  inputLog2 <- input$eSEMlog2 == "Yes"
-  inputwholeLog2 <- input$eSEMWholelog2 == "Yes"
+  organism <- input$jumpsemorg
+  coroff <- input$jumpsemcoroff
+  kmooff <- input$jumpsemkmooff
+  dtype <- input$jumpsemdataType
+  inputLog2 <- input$jumpsemlog2 == "Yes"
+  inputwholeLog2 <- input$jumpsemWholelog2 == "Yes"
   #enzymeSpe <- input$enzymeSpe
 
   
   updateProgressBar(
     session = session,
-    id = "eSEMProgress",
-    title = "Run eSEM Analysis",
+    id = "jumpsemProgress",
+    title = "Run jumpsem Analysis",
     value = 50
   )
   
-  #run eSEM analysis
+  #run jumpsem analysis
   result <- JUMPsem(input = rawdata,
                  datatype = dtype,
                  organism = organism,
@@ -656,7 +657,7 @@ observeEvent(input$submit,{
   
   updateProgressBar(
     session = session,
-    id = "eSEMProgress",
+    id = "jumpsemProgress",
     title = "Get Result",
     value = 60
   )
@@ -671,7 +672,7 @@ observeEvent(input$submit,{
   
   updateProgressBar(
     session = session,
-    id = "eSEMProgress",
+    id = "jumpsemProgress",
     title = "Store result data",
     value = 70
   )
@@ -684,7 +685,7 @@ observeEvent(input$submit,{
   
   updateProgressBar(
     session = session,
-    id = "eSEMProgress",
+    id = "jumpsemProgress",
     title = "Render result table",
     value = 80
   )
@@ -880,7 +881,7 @@ observeEvent(input$submit,{
   
   updateProgressBar(
     session = session,
-    id = "eSEMProgress",
+    id = "jumpsemProgress",
     title = "Render result table",
     value = 100
   )
@@ -889,10 +890,10 @@ observeEvent(input$submit,{
   sendSweetAlert(
     session = session,
     title = "DONE",
-    text = "eSEM analysis done.",
+    text = "jumpsem analysis done.",
     type = "success"
   )
-  eSEMRun$eSEMRunValue <- input$runeSEM
+  jumpsemRun$jumpsemRunValue <- input$runjumpsem
   
 })
 
@@ -900,50 +901,50 @@ observeEvent(input$submit,{
 #render output tables under each tab
 
 output$ActivityRawTable <- renderUI({
-  if(eSEMRun$eSEMRunValue){
+  if(jumpsemRun$jumpsemRunValue){
     tagList(
       fluidRow(column(
         12, 
         downloadButton("download_raw", "Download Result Table"),
         DT::dataTableOutput('Activity_raw') %>% withSpinner()
       )))} else {
-        helpText("Click [Run eSEM Analysis] to obtain Result Table.")
+        helpText("Click [Run jumpsem Analysis] to obtain Result Table.")
       }
 })
 
 output$MeanCenterTable <- renderUI({
-  if(eSEMRun$eSEMRunValue){
+  if(jumpsemRun$jumpsemRunValue){
     tagList(
       fluidRow(column(
         12, 
         downloadButton("download_meancenter", "Download Result Table"),
         DT::dataTableOutput('Activity_MeanCenter') %>% withSpinner()
       )))} else {
-        helpText("Click [Run eSEM Analysis] to obtain Result Table.")
+        helpText("Click [Run jumpsem Analysis] to obtain Result Table.")
       }
 })
 
 output$zscoreTable <- renderUI({
-  if(eSEMRun$eSEMRunValue){
+  if(jumpsemRun$jumpsemRunValue){
     tagList(
       fluidRow(column(
         12, 
         downloadButton("download_zscore", "Download Result Table"),
         DT::dataTableOutput('Activity_Zscore') %>% withSpinner()
       )))} else {
-        helpText("Click [Run eSEM Analysis] to obtain Result Table.")
+        helpText("Click [Run jumpsem Analysis] to obtain Result Table.")
       }
 })
 
 output$Affnity <- renderUI({
-  if(eSEMRun$eSEMRunValue){
+  if(jumpsemRun$jumpsemRunValue){
     tagList(
       fluidRow(column(
         12, 
         downloadButton("download_affinity", "Download Result Table"),
         DT::dataTableOutput('Affinity') %>% withSpinner()
       )))} else {
-        helpText("Click [Run eSEM Analysis] to obtain Result Table.")
+        helpText("Click [Run jumpsem Analysis] to obtain Result Table.")
       }
 })
 
@@ -955,11 +956,11 @@ output$Affnity <- renderUI({
 
 #raw data
 output$ActivityRawHM <- renderUI({
-  if(eSEMRun$eSEMRunValue){
+  if(jumpsemRun$jumpsemRunValue){
     plotlyOutput("rawHeatmap", height = 800)%>% withSpinner()
   }
   else{
-    helpText("No data to plot. Run eSEM analysis first.")
+    helpText("No data to plot. Run jumpsem analysis first.")
   }
 })
 
@@ -1004,11 +1005,11 @@ output$rawHeatmap <- renderPlotly({
 
 # Mean Center
 output$MeanCenterHM <- renderUI({
-  if(eSEMRun$eSEMRunValue){
+  if(jumpsemRun$jumpsemRunValue){
     plotlyOutput("MeanCenterHeatmap", height = 800)%>% withSpinner()
   }
   else{
-    helpText("No data to plot. Run eSEM analysis first.")
+    helpText("No data to plot. Run jumpsem analysis first.")
   }
 })
 
@@ -1052,11 +1053,11 @@ output$MeanCenterHeatmap <- renderPlotly({
 
 #z-score
 output$zscoreHM <- renderUI({
-  if(eSEMRun$eSEMRunValue){
+  if(jumpsemRun$jumpsemRunValue){
     plotlyOutput("ZScoreHeatmap", height = 800)%>% withSpinner()
   }
   else{
-    helpText("No data to plot. Run eSEM analysis first.")
+    helpText("No data to plot. Run jumpsem analysis first.")
   }
 })
 

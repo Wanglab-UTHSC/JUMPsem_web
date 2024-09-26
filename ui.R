@@ -1,4 +1,4 @@
-# ui-eSEM.R
+# ui-jumpsem.R
 
 library(shiny)
 library(shinythemes)
@@ -29,14 +29,14 @@ dashboardPage(
                                                            #style="color: #fff; background-color: #337ab7; border-color: #2e6da4",
                                                            label="Documentation/Guide", value = "Open popup",
                                                            class = "my_class",
-                                                           onclick ="window.open('https://github.com/Wanglab-UTHSC/eSEM_web','_blank')"))
+                                                           onclick ="window.open('https://github.com/Wanglab-UTHSC/JUMPsem_web','_blank')"))
                   ),
   dashboardSidebar(
     disable = T,
     sidebarMenu(
       id = "sider",
       menuItem(text = "JUMPsem",
-               tabName = "esem",
+               tabName = "jumpsem",
                icon = icon("dashboard")
       )
     )
@@ -53,7 +53,7 @@ dashboardPage(
                       }"))
     ),
     tabItem(
-      tabName = "esem",
+      tabName = "jumpsem",
       fluidPage(
         theme = "simplex",
         fluidRow(
@@ -62,21 +62,21 @@ dashboardPage(
           fluidRow(
             tabBox(
               title = "",
-              id = "eSEMdataSource",
+              id = "jumpsemdataSource",
               width = NULL,
               tabPanel(
                 title = "Sample Data",
                 icon = icon("folder-open"),
                 tags$p("Upload your own sample"),
                 radioButtons(
-                  "eSEMdataType",
+                  "jumpsemdataType",
                   "Choose your data type",
                   choices = c("Phosphorylation" = "psp",
                               "Ubiquitination" = "ubi",
                               "Acetylation" = "ace")
                 ),
                 fileInput(
-                  "uploadeSEMSubstrateData",
+                  "uploadjumpsemSubstrateData",
                   "Upload Substrate Data",
                   accept = c("text/csv",
                              "text/comma-separated-values,text/plain",
@@ -101,7 +101,7 @@ dashboardPage(
                 "Example",
                 icon = icon("book"),
                 selectInput(
-                  "eSEMSampleData",
+                  "jumpsemSampleData",
                   "Select Sample Data",
                   choices = c(
                     "Phosphorylation(mouse)" = "pspSample",
@@ -111,7 +111,7 @@ dashboardPage(
                 tags$p("Example JUMPsem raw data for illustration, containing three data types to show."),
                 do.call(actionBttn, c(
                   list(
-                    inputId = "eSEMDataSampleRun",
+                    inputId = "jumpsemDataSampleRun",
                     label = "Run Example Data",
                     icon = icon("play")
                   ),
@@ -128,7 +128,7 @@ dashboardPage(
               width = NULL,
               status = "primary",
               fileInput(
-                "uploadeSEMGroup",
+                "uploadjumpsemGroup",
                 "Upload Group Information",
                 accept = c("text/csv",
                            "text/comma-separated-values,text/plain",
@@ -145,13 +145,13 @@ dashboardPage(
               solidHeader = TRUE,
               width = NULL,
               status = 'primary',
-              selectInput(inputId = "eSEMorg",label = "Substrate Species",
+              selectInput(inputId = "jumpsemorg",label = "Substrate Species",
                           choices = c("Human" = "human",
                                       "Mouse" = "mouse",
                                       "Rat" = "rat")),
               do.call(actionBttn, c(
                 list(
-                  inputId = "runeSEM",
+                  inputId = "runjumpsem",
                   label = "Run JUMPsem Analysis",
                   icon = icon("play")),
                 actionBttnParams
@@ -175,47 +175,47 @@ dashboardPage(
               #             multiple = T
               #             ),
               # bsTooltip(id = "enzymeSpe",title = "Multiple choices available. Default is set the same as substrate organism"),
-              numericInput(inputId = "eSEMcoroff", label = "Correlation Cutoff",
+              numericInput(inputId = "jumpsemcoroff", label = "Correlation Cutoff",
                            value = 0.95,
                            min = 0,
                            max = 1,
                            step = 0.01,
                            width = NULL),
-              bsTooltip(
-                id = "eSEMcoroff",
-                title = "Set up correlation cutoff value 0-1 to remove high collinear variables.",
-                placement = "right"
-              ),
-              numericInput(inputId = "eSEMkmooff", label = "KMO Cutoff",
+              # bsTooltip(
+              #   id = "jumpsemcoroff",
+              #   title = "Set up correlation cutoff value 0-1 to remove high collinear variables.",
+              #   placement = "right"
+              # ),
+              numericInput(inputId = "jumpsemkmooff", label = "KMO Cutoff",
                            value = 0,
                            min = 0,
                            max = 1,
                            step = 0.01,
                            width = NULL),
-              bsTooltip(
-                id = "eSEMkmooff",
-                title = "Set up KMO cutoff value 0-1. Default is 0.",
-                placement = "right"
-              ),
+              # bsTooltip(
+              #   id = "jumpsemkmooff",
+              #   title = "Set up KMO cutoff value 0-1. Default is 0.",
+              #   placement = "right"
+              # ),
               radioButtons(
-                inputId = "eSEMlog2",
+                inputId = "jumpsemlog2",
                 label = "Need substrate data log 2 transformation?",
                 choices = c("Yes",
                             "No"),
                 selected = "No"
               ),
               radioButtons(
-                inputId = "eSEMWholelog2",
+                inputId = "jumpsemWholelog2",
                 label = "Need whole proteome data log 2 transformation?",
                 choices = c("Yes",
                             "No"),
                 selected = "No"
-              ),
-              bsTooltip(
-                id = "eSEMlog2",
-                title = "Need program to do log2 transforming of the input
-file or not."
               )
+#               bsTooltip(
+#                 id = "jumpsemlog2",
+#                 title = "Need program to do log2 transforming of the input
+# file or not."
+#               )
               
             )
           )
@@ -227,7 +227,7 @@ file or not."
             solidHeader = TRUE,
             width = NULL,
             status = "primary",
-            uiOutput("eSEMRawTable")
+            uiOutput("jumpsemRawTable")
           ),
           tabBox(
             title = "",

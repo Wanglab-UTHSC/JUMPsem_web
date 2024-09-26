@@ -15,8 +15,8 @@ shinyServer(function(input,output,session){
   
   variables = reactiveValues(
     #KSEM
-    eSEMRaw = data.frame(),
-    eSEMnorm = data.frame(),
+    jumpsemRaw = data.frame(),
+    jumpsemnorm = data.frame(),
   )
   
   source(file = "JUMPsem.R",

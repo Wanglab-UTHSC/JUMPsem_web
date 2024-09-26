@@ -1,0 +1,12 @@
+name: jumpsem
+title: JUMPsem
+username: azhang97
+account: azhang97
+server: svlprshiny01.stjude.org
+hostUrl: http://svlprshiny01.stjude.org/__api__
+appId: 83
+bundleId: 264
+url: http://svlprshiny01.stjude.org/content/83/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
