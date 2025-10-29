@@ -1,0 +1,6 @@
+# macOS resource fork files
+._*
+
+# Optional: common macOS metadata files
+.DS_Store
+__MACOSX/

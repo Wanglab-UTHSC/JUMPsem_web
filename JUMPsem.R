@@ -64,7 +64,6 @@ observeEvent(input$jumpsemDataSampleRun,{
                       datatype = "psp",
                       organism = "mouse",
                       enzyme.organism = c("human", "mouse", "rat"),
-                      cor.off = 0.8,
                       input.log2.norm = TRUE,
                       whole.log2.trans = TRUE,
                       motif = motif_example,
@@ -89,10 +88,9 @@ observeEvent(input$jumpsemDataSampleRun,{
   )
   
   #save results in variables
-  activity_raw <- result$Activity_Raw[,-1]
-  activity_meancenter <- result$Activity_MeanCenter[,-1]
-  activity_zscore <- result$Activity_Zscore[,-1]
+  activity <- result$Activity
   affinity <- result$Affinity
+  eval <- result$Evaluations
   
   updateProgressBar(
     session = session,
@@ -102,9 +100,8 @@ observeEvent(input$jumpsemDataSampleRun,{
   )
   
   #store results
-  variables$Activity_raw <- activity_raw
-  variables$Activity_MeanCenter <- activity_meancenter
-  variables$Activity_Zscore <- activity_zscore
+  variables$Activity <- activity
+  variables$Evaluations <- eval
   variables$Affinity <- affinity
   
   
@@ -120,19 +117,19 @@ observeEvent(input$jumpsemDataSampleRun,{
   
   # Add a download button to each table
   output$download_raw <- downloadHandler(
-    filename = "Activity_raw.csv",
+    filename = "Activity.csv",
     content = function(file) {
-      write.csv(activity_raw, file)
+      write.csv(activity, file)
     }
   )
   
   # Construct data tables
-  output$Activity_raw <- DT::renderDataTable({
-    if (nrow(variables$Activity_raw) == 0) {
-      DT::datatable(variables$Activity_raw)
+  output$Activity <- DT::renderDataTable({
+    if (nrow(variables$Activity) == 0) {
+      DT::datatable(variables$Activity)
     }else{
-      data <- variables$Activity_raw
-      data <- round(data, digits = 2)
+      data <- variables$Activity
+      #data <- round(data, digits = 2)
       DT::datatable(
         data,
         filter = "bottom",
@@ -140,125 +137,6 @@ observeEvent(input$jumpsemDataSampleRun,{
         extensions = c("Scroller", "Buttons"),
         option = list(
           dom = 'lfrtip',
-          # buttons =
-          #   list(
-          #     'copy',
-          #     'print',
-          #     list(
-          #       extend = 'collection',
-          #       buttons = c('csv', 'excel', 'pdf'),
-          #       text = 'Download'
-          #     )
-          #   ),
-          deferRender = TRUE,
-          scrollY = 400,
-          scrollX = TRUE,
-          scroller = TRUE,
-          
-          pageLength = 5,
-          searchHighlight = TRUE,
-          orderClasses = TRUE,
-          columnDefs = list(
-            list(visible = TRUE, targets = -1)
-          )
-        )
-        
-      )
-    }
-  })
-  
-  
-  updateProgressBar(
-    session = session,
-    id = "jumpsemSampleProgress",
-    title = "Activity Meancenter",
-    value = 80
-  )
-  
-  
-  #activity_meancenter
-  output$download_meancenter <- downloadHandler(
-    filename = "Activity_meancenter.csv",
-    content = function(file) {
-      write.csv(activity_meancenter, file)
-    }
-  )
-  output$Activity_MeanCenter <- DT::renderDataTable({
-    if (nrow(variables$Activity_MeanCenter) == 0) {
-      DT::datatable(variables$Activity_MeanCenter)
-    }else{
-      data <- variables$Activity_MeanCenter
-      data <- round(data, digits = 2)
-      DT::datatable(
-        data,
-        filter = "bottom",
-        selection = 'single',
-        extensions = c("Scroller", "Buttons"),
-        option = list(
-          dom = 'lfrtip',
-          # buttons =
-          #   list(
-          #     'copy',
-          #     'print',
-          #     list(
-          #       extend = 'collection',
-          #       buttons = c('csv', 'excel', 'pdf'),
-          #       text = 'Download'
-          #     )
-          #   ),
-          deferRender = TRUE,
-          scrollY = 400,
-          scrollX = TRUE,
-          scroller = TRUE,
-          
-          pageLength = 5,
-          searchHighlight = TRUE,
-          orderClasses = TRUE,
-          columnDefs = list(
-            list(visible = TRUE, targets = -1)
-          )
-        )
-        
-      )
-    }
-  })
-  
-  updateProgressBar(
-    session = session,
-    id = "jumpsemSampleProgress",
-    title = "Activity Zscore",
-    value = 90
-  )
-  #activity_zscore
-  output$download_zscore <- downloadHandler(
-    filename = "Activity_zscore.csv",
-    content = function(file) {
-      write.csv(activity_zscore, file)
-    }
-  )
-  output$Activity_Zscore <- DT::renderDataTable({
-    if (nrow(variables$Activity_Zscore) == 0) {
-      DT::datatable(variables$Activity_Zscore)
-    }else{
-      data <- variables$Activity_Zscore
-      data <- round(data, digits = 2)
-      DT::datatable(
-        data,
-        filter = "bottom",
-        selection = 'single',
-        extensions = c("Scroller", "Buttons"),
-        option = list(
-          dom = 'lfrtip',
-          # buttons =
-          #   list(
-          #     'copy',
-          #     'print',
-          #     list(
-          #       extend = 'collection',
-          #       buttons = c('csv', 'excel', 'pdf'),
-          #       text = 'Download'
-          #     )
-          #   ),
           deferRender = TRUE,
           scrollY = 400,
           scrollX = TRUE,
@@ -303,16 +181,6 @@ observeEvent(input$jumpsemDataSampleRun,{
         extensions = c("Scroller", "Buttons"),
         option = list(
           dom = 'lfrtip',
-          # buttons =
-          #   list(
-          #     'copy',
-          #     'print',
-          #     list(
-          #       extend = 'collection',
-          #       buttons = c('csv', 'excel', 'pdf'),
-          #       text = 'Download'
-          #     )
-          #   ),
           deferRender = TRUE,
           scrollY = 400,
           scrollX = TRUE,
@@ -329,6 +197,44 @@ observeEvent(input$jumpsemDataSampleRun,{
       )
     }
   })
+  
+  
+  output$download_eval <- downloadHandler(
+    filename = "Evaluations.csv",
+    content = function(file) {
+      write.csv(eval, file)
+    }
+  )
+  output$Evaluations <- DT::renderDataTable({
+    if (nrow(variables$Evaluations) == 0) {
+      DT::datatable(variables$Evaluations)
+    }else{
+      data <- variables$Evaluations
+      #data <- round(data, digits = 2)
+      DT::datatable(
+        data,
+        filter = "bottom",
+        selection = 'single',
+        extensions = c("Scroller", "Buttons"),
+        option = list(
+          dom = 'lfrtip',
+          deferRender = TRUE,
+          scrollY = 400,
+          scrollX = TRUE,
+          scroller = TRUE,
+          
+          pageLength = 5,
+          searchHighlight = TRUE,
+          orderClasses = TRUE,
+          columnDefs = list(
+            list(visible = TRUE, targets = -1)
+          )
+        )
+        
+      )
+    }
+  })
+  
   
   jumpsemRun$jumpsemRunValue <- input$jumpsemDataSampleRun
   
@@ -489,15 +395,6 @@ output$jumpsemRawTable <- renderUI({
 
 #----------Group info(optional)------------
 observeEvent(input$uploadjumpsemGroup,{
-  # if (nrow(variables$jumpsemRaw) == 0) {
-  #   sendSweetAlert(
-  #     session = session,
-  #     title = "ERROR",
-  #     text = "Please input subsrate data!",
-  #     type = "error"
-  #   )
-  #   return()
-  # }
   
   tryCatch(
     {
@@ -543,23 +440,30 @@ observeEvent(input$uploadjumpsemGroup,{
 observeEvent(input$runjumpsem,{
   #obtain parameters
   organism <- input$jumpsemorg
-  coroff <- input$jumpsemcoroff
+  #coroff <- input$jumpsemcoroff
   kmooff <- input$jumpsemkmooff
   dtype <- input$jumpsemdataType
   inputLog2 <- input$jumpsemlog2 == "Yes"
   inputwholeLog2 <- input$jumpsemWholelog2 == "Yes"
+  motif <- if (!is.null(input$uploadmotif))
+    data.frame(fread(input$uploadmotif$datapath))
+  else
+    NULL
+  enzyme_org <- input$enzyme_org
   checkwhole <- ifelse(nrow(variables$jumpsemnorm) == 0,yes = "None", no = "Yes")
   
+  sel <- names(orgchoice)[orgchoice %in% enzyme_org]
+  label_text <- if (length(sel)) paste(sel, collapse = ", ") else "None"
   
   #show modal when button is clicked
   #show warning if user select certain parameters
   showModal(modalDialog(
     tags$h2('Please check your parameters',style="text-align:center"),
     tags$p(tags$b("Data Type"),": ", names(dt_choice)[dt_choice == dtype]),
-    tags$p(tags$b("Substrate Species"),": ", names(orgchoice)[orgchoice == organism]),
-    #tags$p(tags$b("Enzyme Species"),": ", names(orgchoice)[orgchoice == organism]),
+    tags$p(tags$b("Substrate Species"),": ", organism),
+    tags$p(tags$b("Enzyme Species"),": ", label_text),
     tags$p(tags$b("Whole Proteome"),": ", checkwhole),
-    tags$p(tags$b("Correlation Cutoff"),": ", coroff),
+    #tags$p(tags$b("Correlation Cutoff"),": ", coroff),
     tags$p(tags$b("KMO Cutoff"),": ", kmooff),
     tags$p(tags$b("Need substrate data log 2 transformation?"), input$jumpsemlog2),
     tags$p(tags$b("Need whole proteome data log 2 transformation?"), input$jumpsemWholelog2),
@@ -628,11 +532,16 @@ observeEvent(input$submit,{
   
   #obtain parameters
   organism <- input$jumpsemorg
-  coroff <- input$jumpsemcoroff
+  #coroff <- input$jumpsemcoroff
   kmooff <- input$jumpsemkmooff
   dtype <- input$jumpsemdataType
   inputLog2 <- input$jumpsemlog2 == "Yes"
   inputwholeLog2 <- input$jumpsemWholelog2 == "Yes"
+  motif <- if (!is.null(input$uploadmotif))
+    data.frame(fread(input$uploadmotif$datapath))
+  else
+    NULL
+  enzyme_org <- input$enzyme_org
   #enzymeSpe <- input$enzymeSpe
 
   
@@ -648,11 +557,12 @@ observeEvent(input$submit,{
                  datatype = dtype,
                  organism = organism,
                  whole.proteome = wholePro,
-                 cor.off = coroff,
                  kmo.off = kmooff,
                  #enzyme.organism = enzymeSpe,
                  input.log2.norm = inputLog2,
-                 whole.log2.trans = inputwholeLog2)
+                 whole.log2.trans = inputwholeLog2,
+                 motif = motif,
+                 enzyme.organism = enzyme_org)
   
   
   updateProgressBar(
@@ -663,10 +573,9 @@ observeEvent(input$submit,{
   )
   
   #save results in variables
-  activity_raw <- result$Activity_Raw[,-1]
-  activity_meancenter <- result$Activity_MeanCenter[,-1]
-  activity_zscore <- result$Activity_Zscore[,-1]
+  activity <- result$Activity
   affinity <- result$Affinity
+  eval <- result$Evaluations
   
   
   
@@ -677,9 +586,8 @@ observeEvent(input$submit,{
     value = 70
   )
   #store results
-  variables$Activity_raw <- activity_raw
-  variables$Activity_MeanCenter <- activity_meancenter
-  variables$Activity_Zscore <- activity_zscore
+  variables$Activity <- activity
+  variables$Evaluations <- eval
   variables$Affinity <- affinity
   
   
@@ -693,17 +601,17 @@ observeEvent(input$submit,{
   # Render result table on the right top ----
   
   output$download_raw <- downloadHandler(
-    filename = "Activity_raw.csv",
+    filename = "Activity.csv",
     content = function(file) {
-      write.csv(activity_raw, file)
+      write.csv(Activity, file)
     }
   )
-  output$Activity_raw <- DT::renderDataTable({
-    if (nrow(variables$Activity_raw) == 0) {
-      DT::datatable(variables$Activity_raw)
+  output$Activity <- DT::renderDataTable({
+    if (nrow(variables$Activity) == 0) {
+      DT::datatable(variables$Activity)
     }else{
-      data <- variables$Activity_raw
-      data <- round(data, digits = 2)
+      data <- variables$Activity
+      #data <- round(data, digits = 2)
       DT::datatable(
         data,
         filter = "bottom",
@@ -711,16 +619,6 @@ observeEvent(input$submit,{
         extensions = c("Scroller", "Buttons"),
         option = list(
           dom = 'lfrtip',
-          # buttons =
-          #   list(
-          #     'copy',
-          #     'print',
-          #     list(
-          #       extend = 'collection',
-          #       buttons = c('csv', 'excel', 'pdf'),
-          #       text = 'Download'
-          #     )
-          #   ),
           deferRender = TRUE,
           scrollY = 400,
           scrollX = TRUE,
@@ -738,19 +636,19 @@ observeEvent(input$submit,{
     }
   })
   
-  #activity_meancenter
-  output$download_meancenter <- downloadHandler(
-    filename = "Activity_meancenter.csv",
+  #Evaluations download
+  output$download_eval <- downloadHandler(
+    filename = "Evaluations.csv",
     content = function(file) {
-      write.csv(activity_meancenter, file)
+      write.csv(eval, file)
     }
   )
-  output$Activity_MeanCenter <- DT::renderDataTable({
-    if (nrow(variables$Activity_MeanCenter) == 0) {
-      DT::datatable(variables$Activity_MeanCenter)
+  output$Evaluations <- DT::renderDataTable({
+    if (nrow(variables$Evaluations) == 0) {
+      DT::datatable(variables$Evaluations)
     }else{
-      data <- variables$Activity_MeanCenter
-      data <- round(data, digits = 2)
+      data <- variables$Evaluations
+      #data <- round(data, digits = 2)
       DT::datatable(
         data,
         filter = "bottom",
@@ -758,16 +656,6 @@ observeEvent(input$submit,{
         extensions = c("Scroller", "Buttons"),
         option = list(
           dom = 'lfrtip',
-          # buttons =
-          #   list(
-          #     'copy',
-          #     'print',
-          #     list(
-          #       extend = 'collection',
-          #       buttons = c('csv', 'excel', 'pdf'),
-          #       text = 'Download'
-          #     )
-          #   ),
           deferRender = TRUE,
           scrollY = 400,
           scrollX = TRUE,
@@ -785,52 +673,7 @@ observeEvent(input$submit,{
     }
   })
   
-  #activity_zscore
-  output$download_zscore <- downloadHandler(
-    filename = "Activity_zscore.csv",
-    content = function(file) {
-      write.csv(activity_zscore, file)
-    }
-  )
-  output$Activity_Zscore <- DT::renderDataTable({
-    if (nrow(variables$Activity_Zscore) == 0) {
-      DT::datatable(variables$Activity_Zscore)
-    }else{
-      data <- variables$Activity_Zscore
-      data <- round(data, digits = 2)
-      DT::datatable(
-        data,
-        filter = "bottom",
-        selection = 'single',
-        extensions = c("Scroller", "Buttons"),
-        option = list(
-          dom = 'lfrtip',
-          # buttons =
-          #   list(
-          #     'copy',
-          #     'print',
-          #     list(
-          #       extend = 'collection',
-          #       buttons = c('csv', 'excel', 'pdf'),
-          #       text = 'Download'
-          #     )
-          #   ),
-          deferRender = TRUE,
-          scrollY = 400,
-          scrollX = TRUE,
-          scroller = TRUE,
-          
-          pageLength = 5,
-          searchHighlight = TRUE,
-          orderClasses = TRUE,
-          columnDefs = list(
-            list(visible = TRUE, targets = -1)
-          )
-        )
-        
-      )
-    }
-  })
+
   
   #affinity
   output$download_affinity <- downloadHandler(
@@ -906,31 +749,19 @@ output$ActivityRawTable <- renderUI({
       fluidRow(column(
         12, 
         downloadButton("download_raw", "Download Result Table"),
-        DT::dataTableOutput('Activity_raw') %>% withSpinner()
+        DT::dataTableOutput('Activity') %>% withSpinner()
       )))} else {
         helpText("Click [Run jumpsem Analysis] to obtain Result Table.")
       }
 })
 
-output$MeanCenterTable <- renderUI({
+output$evaluationsTable <- renderUI({
   if(jumpsemRun$jumpsemRunValue){
     tagList(
       fluidRow(column(
         12, 
-        downloadButton("download_meancenter", "Download Result Table"),
-        DT::dataTableOutput('Activity_MeanCenter') %>% withSpinner()
-      )))} else {
-        helpText("Click [Run jumpsem Analysis] to obtain Result Table.")
-      }
-})
-
-output$zscoreTable <- renderUI({
-  if(jumpsemRun$jumpsemRunValue){
-    tagList(
-      fluidRow(column(
-        12, 
-        downloadButton("download_zscore", "Download Result Table"),
-        DT::dataTableOutput('Activity_Zscore') %>% withSpinner()
+        downloadButton("download_eval", "Download Result Table"),
+        DT::dataTableOutput('Evaluations') %>% withSpinner()
       )))} else {
         helpText("Click [Run jumpsem Analysis] to obtain Result Table.")
       }
@@ -965,7 +796,8 @@ output$ActivityRawHM <- renderUI({
 })
 
 output$rawHeatmap <- renderPlotly({
-  data <- variables$Activity_raw
+  data <- variables$Activity
+  data <- data[-1]
   rown <- nrow(data)
   if(rown <= 100){
     selectn <- rown
@@ -990,113 +822,17 @@ output$rawHeatmap <- renderPlotly({
       midpoint = 0, 
       limits = c(-3, 3)
     ),
-    main = "Activity Raw Data"
+    main = "Activity"
   )%>%
     config(
       toImageButtonOptions = list(
         format = "svg",
-        filename = "Activity Raw Data"
+        filename = "Activity"
       ))
   
   variables$ActivityRawHM <- p
   p
 })
 
-
-# Mean Center
-output$MeanCenterHM <- renderUI({
-  if(jumpsemRun$jumpsemRunValue){
-    plotlyOutput("MeanCenterHeatmap", height = 800)%>% withSpinner()
-  }
-  else{
-    helpText("No data to plot. Run jumpsem analysis first.")
-  }
-})
-
-output$MeanCenterHeatmap <- renderPlotly({
-  data <- variables$Activity_MeanCenter
-  rown <- nrow(data)
-  if(rown <= 100){
-    selectn <- rown
-  }else{
-    selectn <- 100
-  }
-  
-  data <- data[1:selectn,]
-  data <- data[!rowSums(data >5),]
-  
-  data <- as.matrix(data)
-  p <- heatmaply(
-    data,
-    xlab = "Sample",
-    ylab = "Protein ID",
-    Rowv = T,
-    Colv = F,
-    scale = "row",
-    scale_fill_gradient_fun = ggplot2::scale_fill_gradient2(
-      low = "blue", 
-      high = "red", 
-      midpoint = 0, 
-      limits = c(-1, 1)
-    ),
-    main = "Activity Mean Center Data"
-  )%>%
-    config(
-      toImageButtonOptions = list(
-        format = "svg",
-        filename = "Activity Mean Center"
-      ))
-  
-  variables$ActivityMeanCenterHM <- p
-  p
-})
-
-#z-score
-output$zscoreHM <- renderUI({
-  if(jumpsemRun$jumpsemRunValue){
-    plotlyOutput("ZScoreHeatmap", height = 800)%>% withSpinner()
-  }
-  else{
-    helpText("No data to plot. Run jumpsem analysis first.")
-  }
-})
-
-output$ZScoreHeatmap <- renderPlotly({
-  data <- variables$Activity_Zscore
-  rown <- nrow(data)
-  if(rown <= 100){
-    selectn <- rown
-  }else{
-    selectn <- 100
-  }
-  
-  data <- data[1:selectn,]
-  data <- data[!rowSums(data >5),]
-  
-  data <- as.matrix(data)
-  p <- heatmaply(
-    data,
-    xlab = "Sample",
-    ylab = "Protein ID",
-    Rowv = T,
-    Colv = F,
-    scale = "row",
-    scale_fill_gradient_fun = ggplot2::scale_fill_gradient2(
-      low = "blue", 
-      high = "red", 
-      midpoint = 0, 
-      limits = c(-1, 1)
-    ),
-    main = "Activity Z-Score Data"
-  )%>%
-    config(
-      toImageButtonOptions = list(
-        format = "svg",
-        filename = "Activity Z Score"
-      ))
-  
-  variables$ActivityZScoreHM <- p
-  p
-})
 
 

@@ -1,26 +1,7 @@
 # ui-jumpsem.R
 
 library(shiny)
-library(shinythemes)
-library(fresh)
 library(shinyjs)
-
-my_theme = create_theme(
-  adminlte_color(
-    light_blue = "#4898a8"
-  ),
-  adminlte_sidebar(
-    width = "200px",
-    dark_bg = "#D8DEE9",
-    dark_hover_bg = "#81A1C1",
-    dark_color = "#2E3440"
-  ),
-  adminlte_global(
-    content_bg = "#E8E8E8",
-    box_bg = "#FFF", 
-    info_box_bg = "#FFF"
-  )
-)
 
 dashboardPage(
   dashboardHeader(title = "JUMPsem",
@@ -43,19 +24,33 @@ dashboardPage(
 
   ),
   dashboardBody(
-    use_theme(my_theme),
     useShinyjs(),
     tags$head(
+      includeCSS("../theme.css"),
       tags$style(HTML("
-                      .my_class {
-                      font-weight: bold;
-                      color:white;
-                      }"))
+        .my_class {
+          font-weight: bold;
+          color: #fff;
+        }
+        .main-header .my_class {
+          background-color: transparent !important;
+          border: none !important;
+          color: #fff !important;
+          box-shadow: none !important;
+          padding: 15px 10px;
+        }
+        .main-header .my_class:hover,
+        .main-header .my_class:focus,
+        .main-header .my_class:active {
+          background-color: #008ccf !important;
+          color: #fff !important;
+          transform: none !important;
+        }
+      "))
     ),
     tabItem(
       tabName = "jumpsem",
       fluidPage(
-        theme = "simplex",
         fluidRow(
           column(
           3,
@@ -149,6 +144,11 @@ dashboardPage(
                           choices = c("Human" = "human",
                                       "Mouse" = "mouse",
                                       "Rat" = "rat")),
+              selectInput(inputId = "enzyme_org",label = "Enzyme Species(only phospho)",
+                          choices = c("Human" = "human",
+                                      "Mouse" = "mouse",
+                                      "Rat" = "rat"),
+                          multiple = T),
               do.call(actionBttn, c(
                 list(
                   inputId = "runjumpsem",
@@ -175,12 +175,15 @@ dashboardPage(
               #             multiple = T
               #             ),
               # bsTooltip(id = "enzymeSpe",title = "Multiple choices available. Default is set the same as substrate organism"),
-              numericInput(inputId = "jumpsemcoroff", label = "Correlation Cutoff",
-                           value = 0.95,
-                           min = 0,
-                           max = 1,
-                           step = 0.01,
-                           width = NULL),
+              fileInput(
+                "uploadmotif",
+                "Upload motif data",
+                accept = c("text/csv",
+                           "text/comma-separated-values,text/plain",
+                           ".csv"),
+                buttonLabel = "Upload...",
+                placeholder = "No file has been uploaded."
+              ),
               # bsTooltip(
               #   id = "jumpsemcoroff",
               #   title = "Set up correlation cutoff value 0-1 to remove high collinear variables.",
@@ -233,24 +236,13 @@ dashboardPage(
             title = "",
             width = NULL,
             tabPanel(
-              title = tagList(icon("chart-column"), "Activity"),
-              tabsetPanel(
-                tabPanel(
-                  title = tagList(icon("square-poll-vertical"), "Raw result"),
-                  uiOutput("ActivityRawTable"),
-                  uiOutput("ActivityRawHM")
-                ),
-                tabPanel(
-                  title = tagList(icon("square-poll-vertical"), "Mean Center"),
-                  uiOutput("MeanCenterTable"),
-                  uiOutput("MeanCenterHM")
-                ),
-                tabPanel(
-                  title = tagList(icon("square-poll-vertical"), "Z score"),
-                  uiOutput("zscoreTable"),
-                  uiOutput("zscoreHM")
-                )
-              )
+              title = tagList(icon("square-poll-vertical"), "Activity"),
+              uiOutput("ActivityRawTable"),
+              uiOutput("ActivityRawHM")
+            ),
+            tabPanel(
+              title = tagList(icon("square-poll-vertical"), "Evaluations"),
+              uiOutput("evaluationsTable")
             ),
             tabPanel(
               title = tagList(icon("chart-column"), "Affinity"),
@@ -267,4 +259,3 @@ dashboardPage(
   )
 
 )
-
