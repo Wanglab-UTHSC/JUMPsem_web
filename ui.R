@@ -26,7 +26,7 @@ dashboardPage(
   dashboardBody(
     useShinyjs(),
     tags$head(
-      includeCSS("../theme.css"),
+      includeCSS("theme.css"),
       tags$style(HTML("
         .my_class {
           font-weight: bold;
