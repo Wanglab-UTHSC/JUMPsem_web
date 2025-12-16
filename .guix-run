@@ -1,0 +1,17 @@
+#! /bin/bash
+
+startup=run_app.R
+echo Run: Rscript $startup
+
+if [ ! -e $startup ]; then
+  echo Start from git repo that contains shiny app
+else
+
+  mkdir -p ~/.Rlibs
+  mkdir -p lib
+  export R_LIBS_USER=$HOME/.Rlibs
+  guix shell --without-tests=r-rvest -L guix-bioinformatics -C -F -N --share=$R_LIBS_USER --preserve='^R_LIBS_USER' r-devtools r-shiny r-dplyr r-shinycssloaders r-ggplot2 r-heatmaply r-shinybs r-shinyjs r-scales r-data-table r-rcolorbrewer r-markdown r-tidyr r-shinydashboard r-plotly r-gplots r-dt r-tidyverse r-lavaan r-rcpparmadillo r-pacman r-dplyr bash r make coreutils gcc-toolchain -- Rscript $startup
+#  r-shiny r r-plotly coreutils r-shinythemes r-fresh r-shinydashboard r-pacman r-annotate r-biocmanager make gcc-toolchain r-pbivnorm r-quadprog r-ps r-versions r-credentials r-processx r-rcpparmadillo r-ragg r-markdown libxml2 curl r-rvest r-mnormt sed r-tidyverse r-shiny r-shinybs r-shinycssloaders r-shinydashboard r-shinyjs
+  #r-circlize r-cluster r-clusterprofiler r-complexheatmap r-curl r-data-table r-dplyr r-dt r-fresh r-ggnewscale r-ggplot2 r-gplots r-gplots r-heatmaply r-igraph r-knitr r-limma r-markdown r-mass r-officer r-org-hs-eg-db r-org-mm-eg-db r-pheatmap r-plotly r-plyr r-enrichplot r-rcolorbrewer r-readxl r-rmarkdown  r-shiny r-shinybs r-shinycssloaders r-shinydashboard r-shinyjs r-shinythemes r-stringr r-tidyr r-tidyverse r-webshot r-wgcna r-writexl r-zoo r-testthat r-usethis r-profvis r-roxygen2
+
+fi

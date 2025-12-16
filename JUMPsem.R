@@ -1,7 +1,7 @@
 #JUMPsem.R
 
 # server-JUMPsem.R
-library(JUMPsem)
+# library(JUMPsem)
 options(scipen=999)
 
 #Retrive the user upload raw data
@@ -19,7 +19,7 @@ observe({
     shinyjs::show(selector = ".rowhide")
     variables$jumpsemRaw <- data.frame()
     jumpsemRun$jumpsemRunValue <- FALSE
-    
+
   }else{
     shinyjs::hide(selector = ".rowhide")
     if(input$jumpsemSampleData == "pspSample"){
@@ -33,7 +33,7 @@ observe({
       variables$jumpsemRaw <- cbind(data[,1:3],temp)
     }
     jumpsemRun$jumpsemRunValue <- FALSE
-  } 
+  }
 })
 
 
@@ -41,10 +41,10 @@ observe({
 
 #process the jumpsem analysis directly
 observeEvent(input$jumpsemDataSampleRun,{
-  
+
   #load sample data
   #run Sample result
-  
+
   progressSweetAlert(
     session = session,
     id = "jumpsemSampleProgress",
@@ -58,7 +58,7 @@ observeEvent(input$jumpsemDataSampleRun,{
     title = "Run JUMPsem analysis",
     value = 30
   )
-  
+
   if(input$jumpsemSampleData == "pspSample"){
     result <- JUMPsem(input = variables$jumpsemRaw,
                       datatype = "psp",
@@ -79,42 +79,42 @@ observeEvent(input$jumpsemDataSampleRun,{
                    organism = "human",
                    input.log2.norm = FALSE)
   }
-  
+
   updateProgressBar(
     session = session,
     id = "jumpsemSampleProgress",
     title = "Process Results",
     value = 50
   )
-  
+
   #save results in variables
   activity <- result$Activity
   affinity <- result$Affinity
   eval <- result$Evaluations
-  
+
   updateProgressBar(
     session = session,
     id = "jumpsemSampleProgress",
     title = "Save Results",
     value = 60
   )
-  
+
   #store results
   variables$Activity <- activity
   variables$Evaluations <- eval
   variables$Affinity <- affinity
-  
-  
+
+
   updateProgressBar(
     session = session,
     id = "jumpsemSampleProgress",
     title = "Format Activity Raw Table",
     value = 70
   )
-  
-  
+
+
   # Render result table on the right top ----
-  
+
   # Add a download button to each table
   output$download_raw <- downloadHandler(
     filename = "Activity.csv",
@@ -122,7 +122,7 @@ observeEvent(input$jumpsemDataSampleRun,{
       write.csv(activity, file)
     }
   )
-  
+
   # Construct data tables
   output$Activity <- DT::renderDataTable({
     if (nrow(variables$Activity) == 0) {
@@ -141,7 +141,7 @@ observeEvent(input$jumpsemDataSampleRun,{
           scrollY = 400,
           scrollX = TRUE,
           scroller = TRUE,
-          
+
           pageLength = 5,
           searchHighlight = TRUE,
           orderClasses = TRUE,
@@ -149,18 +149,18 @@ observeEvent(input$jumpsemDataSampleRun,{
             list(visible = TRUE, targets = -1)
           )
         )
-        
+
       )
     }
   })
-  
+
   updateProgressBar(
     session = session,
     id = "jumpsemSampleProgress",
     title = "Affinity",
     value = 100
   )
-  
+
   #affinity
   output$download_affinity <- downloadHandler(
     filename = "Affinity.csv",
@@ -185,7 +185,7 @@ observeEvent(input$jumpsemDataSampleRun,{
           scrollY = 400,
           scrollX = TRUE,
           scroller = TRUE,
-          
+
           pageLength = 5,
           searchHighlight = TRUE,
           orderClasses = TRUE,
@@ -193,12 +193,12 @@ observeEvent(input$jumpsemDataSampleRun,{
             list(visible = TRUE, targets = -1)
           )
         )
-        
+
       )
     }
   })
-  
-  
+
+
   output$download_eval <- downloadHandler(
     filename = "Evaluations.csv",
     content = function(file) {
@@ -222,7 +222,7 @@ observeEvent(input$jumpsemDataSampleRun,{
           scrollY = 400,
           scrollX = TRUE,
           scroller = TRUE,
-          
+
           pageLength = 5,
           searchHighlight = TRUE,
           orderClasses = TRUE,
@@ -230,14 +230,14 @@ observeEvent(input$jumpsemDataSampleRun,{
             list(visible = TRUE, targets = -1)
           )
         )
-        
+
       )
     }
   })
-  
-  
+
+
   jumpsemRun$jumpsemRunValue <- input$jumpsemDataSampleRun
-  
+
   closeSweetAlert(session = session)
   sendSweetAlert(
     session = session,
@@ -252,12 +252,12 @@ observeEvent(input$jumpsemDataSampleRun,{
 observeEvent(input$uploadjumpsemSubstrateData,{
   #show notification of uploading
   showNotification("Start uploading file...", type = "message")
-  
+
   tryCatch({
     #read in uploaded substrate raw data
     subrawdata <-
       data.frame(fread(input$uploadjumpsemSubstrateData$datapath))
-    
+
     #check if sample values are numeric
     if(input$jumpsemdataType == "ace"){
       temp <- subrawdata[,4:ncol(subrawdata)]
@@ -268,13 +268,13 @@ observeEvent(input$uploadjumpsemSubstrateData,{
       temp <- temp %>% mutate_if(is.character,as.numeric)
       subrawdata <- cbind(subrawdata[,1:4],temp)
     }
-    
+
     #omit NA values
     #subrawdata<- na.omit(subrawdata)
-    
+
     #write.csv(subrawdata,"jumpsemraw.csv")
     jumpsemRun$jumpsemRunValue <- FALSE
-    
+
     variables$jumpsemRaw <- subrawdata
     showNotification("Received uploaded file.", type = "message")
   },
@@ -296,9 +296,9 @@ observeEvent(input$uploadjumpsemSubstrateData,{
     )
     return()
   }
-  
+
   )
-  
+
 })
 # jumpsemdataInput <- reactive({
 #   variables$jumpsemRaw
@@ -309,23 +309,23 @@ observeEvent(input$uploadjumpsemSubstrateData,{
 observeEvent(input$uploadWholeProteomicsData,{
   #show notification of uploading
   showNotification("Start uploading file...", type = "message")
-  
+
   tryCatch(
     {
       #read in uploaded normalization data
       jumpsemnorm <- data.frame(fread(input$uploadWholeProteomicsData$datapath))
-      
+
       #omit NA values
       jumpsemnorm <- na.omit(jumpsemnorm)
-      
+
       #check data
       #write.csv(jumpsemnorm,"test/jumpsemnorm.csv")
       jumpsemRun$jumpsemRunValue <- FALSE
-      
+
       #store in variables
       variables$jumpsemnorm <- jumpsemnorm
       showNotification("Received uploaded file.", type = "message")
-      
+
     },
     error = function(e) {
       sendSweetAlert(
@@ -354,14 +354,14 @@ observeEvent(input$uploadWholeProteomicsData,{
 
 # Render a table of raw substrate data, adding color ----
 output$rawTable <- DT::renderDataTable({
-  df <- variables$jumpsemRaw 
-  
+  df <- variables$jumpsemRaw
+
   brks <-
     quantile(df %>% select_if(is.numeric),
              probs = seq(.05, .95, .05),
              na.rm = TRUE
     )
-  
+
   colInd <- 5:ncol(df)
   df[colInd] <- round(df[colInd], digits = 2)
   DT::datatable(
@@ -395,18 +395,18 @@ output$jumpsemRawTable <- renderUI({
 
 #----------Group info(optional)------------
 observeEvent(input$uploadjumpsemGroup,{
-  
+
   tryCatch(
     {
       #read in uploaded group information
       jumpsemgroup <- data.frame(fread(input$uploadjumpsemGroup$datapath))
-      
+
       jumpsemRun$jumpsemRunValue <- FALSE
-      
+
       #store in variables
       variables$jumpsemgroup <- jumpsemgroup
       showNotification("Received uploaded file.", type = "message")
-      
+
     },
     error = function(e) {
       sendSweetAlert(
@@ -427,7 +427,7 @@ observeEvent(input$uploadjumpsemGroup,{
       return()
     }
   )
-  
+
 })
 
 
@@ -451,10 +451,10 @@ observeEvent(input$runjumpsem,{
     NULL
   enzyme_org <- input$enzyme_org
   checkwhole <- ifelse(nrow(variables$jumpsemnorm) == 0,yes = "None", no = "Yes")
-  
+
   sel <- names(orgchoice)[orgchoice %in% enzyme_org]
   label_text <- if (length(sel)) paste(sel, collapse = ", ") else "None"
-  
+
   #show modal when button is clicked
   #show warning if user select certain parameters
   showModal(modalDialog(
@@ -468,7 +468,7 @@ observeEvent(input$runjumpsem,{
     tags$p(tags$b("Need substrate data log 2 transformation?"), input$jumpsemlog2),
     tags$p(tags$b("Need whole proteome data log 2 transformation?"), input$jumpsemWholelog2),
     span("Click ",tags$b("Cancel "), "to modify your choice or ", tags$b("Submit "), "to run jumpsem analysis."),
-    
+
     easyClose = T,
     fade = T,
     footer = tagList(
@@ -476,7 +476,7 @@ observeEvent(input$runjumpsem,{
       actionButton("submit", "Submit")
     )
   ))
-  
+
 })
 
 
@@ -489,10 +489,10 @@ observeEvent(input$submit,{
     display_pct = TRUE,
     value = 0
   )
-  
+
   #obtain substrate data
   rawdata <- variables$jumpsemRaw
-  
+
   updateProgressBar(
     session = session,
     id = "jumpsemProgress",
@@ -505,7 +505,7 @@ observeEvent(input$submit,{
   }else{
     wholePro <- NULL
   }
-  
+
   if (nrow(rawdata)==0) {
     sendSweetAlert(
       session = session,
@@ -527,9 +527,9 @@ observeEvent(input$submit,{
     title = "Read in parameters",
     value = 40
   )
-  
-  
-  
+
+
+
   #obtain parameters
   organism <- input$jumpsemorg
   #coroff <- input$jumpsemcoroff
@@ -544,14 +544,14 @@ observeEvent(input$submit,{
   enzyme_org <- input$enzyme_org
   #enzymeSpe <- input$enzymeSpe
 
-  
+
   updateProgressBar(
     session = session,
     id = "jumpsemProgress",
     title = "Run jumpsem Analysis",
     value = 50
   )
-  
+
   #run jumpsem analysis
   result <- JUMPsem(input = rawdata,
                  datatype = dtype,
@@ -563,22 +563,22 @@ observeEvent(input$submit,{
                  whole.log2.trans = inputwholeLog2,
                  motif = motif,
                  enzyme.organism = enzyme_org)
-  
-  
+
+
   updateProgressBar(
     session = session,
     id = "jumpsemProgress",
     title = "Get Result",
     value = 60
   )
-  
+
   #save results in variables
   activity <- result$Activity
   affinity <- result$Affinity
   eval <- result$Evaluations
-  
-  
-  
+
+
+
   updateProgressBar(
     session = session,
     id = "jumpsemProgress",
@@ -589,17 +589,17 @@ observeEvent(input$submit,{
   variables$Activity <- activity
   variables$Evaluations <- eval
   variables$Affinity <- affinity
-  
-  
+
+
   updateProgressBar(
     session = session,
     id = "jumpsemProgress",
     title = "Render result table",
     value = 80
   )
-  
+
   # Render result table on the right top ----
-  
+
   output$download_raw <- downloadHandler(
     filename = "Activity.csv",
     content = function(file) {
@@ -623,7 +623,7 @@ observeEvent(input$submit,{
           scrollY = 400,
           scrollX = TRUE,
           scroller = TRUE,
-          
+
           pageLength = 5,
           searchHighlight = TRUE,
           orderClasses = TRUE,
@@ -631,11 +631,11 @@ observeEvent(input$submit,{
             list(visible = TRUE, targets = -1)
           )
         )
-        
+
       )
     }
   })
-  
+
   #Evaluations download
   output$download_eval <- downloadHandler(
     filename = "Evaluations.csv",
@@ -660,7 +660,7 @@ observeEvent(input$submit,{
           scrollY = 400,
           scrollX = TRUE,
           scroller = TRUE,
-          
+
           pageLength = 5,
           searchHighlight = TRUE,
           orderClasses = TRUE,
@@ -668,13 +668,13 @@ observeEvent(input$submit,{
             list(visible = TRUE, targets = -1)
           )
         )
-        
+
       )
     }
   })
-  
 
-  
+
+
   #affinity
   output$download_affinity <- downloadHandler(
     filename = "Activity_affinity.csv",
@@ -709,7 +709,7 @@ observeEvent(input$submit,{
           scrollY = 400,
           scrollX = TRUE,
           scroller = TRUE,
-          
+
           pageLength = 5,
           searchHighlight = TRUE,
           orderClasses = TRUE,
@@ -717,18 +717,18 @@ observeEvent(input$submit,{
             list(visible = TRUE, targets = -1)
           )
         )
-        
+
       )
     }
   })
-  
+
   updateProgressBar(
     session = session,
     id = "jumpsemProgress",
     title = "Render result table",
     value = 100
   )
-  
+
   closeSweetAlert(session = session)
   sendSweetAlert(
     session = session,
@@ -737,7 +737,7 @@ observeEvent(input$submit,{
     type = "success"
   )
   jumpsemRun$jumpsemRunValue <- input$runjumpsem
-  
+
 })
 
 
@@ -747,7 +747,7 @@ output$ActivityRawTable <- renderUI({
   if(jumpsemRun$jumpsemRunValue){
     tagList(
       fluidRow(column(
-        12, 
+        12,
         downloadButton("download_raw", "Download Result Table"),
         DT::dataTableOutput('Activity') %>% withSpinner()
       )))} else {
@@ -759,7 +759,7 @@ output$evaluationsTable <- renderUI({
   if(jumpsemRun$jumpsemRunValue){
     tagList(
       fluidRow(column(
-        12, 
+        12,
         downloadButton("download_eval", "Download Result Table"),
         DT::dataTableOutput('Evaluations') %>% withSpinner()
       )))} else {
@@ -771,7 +771,7 @@ output$Affnity <- renderUI({
   if(jumpsemRun$jumpsemRunValue){
     tagList(
       fluidRow(column(
-        12, 
+        12,
         downloadButton("download_affinity", "Download Result Table"),
         DT::dataTableOutput('Affinity') %>% withSpinner()
       )))} else {
@@ -804,10 +804,10 @@ output$rawHeatmap <- renderPlotly({
   }else{
     selectn <- 100
   }
-  
+
   data <- data[1:selectn,]
 
-  
+
   data <- as.matrix(data)
   p <- heatmaply(
     data,
@@ -817,9 +817,9 @@ output$rawHeatmap <- renderPlotly({
     Colv = F,
     scale = "row",
     scale_fill_gradient_fun = ggplot2::scale_fill_gradient2(
-      low = "blue", 
-      high = "red", 
-      midpoint = 0, 
+      low = "blue",
+      high = "red",
+      midpoint = 0,
       limits = c(-3, 3)
     ),
     main = "Activity"
@@ -829,10 +829,7 @@ output$rawHeatmap <- renderPlotly({
         format = "svg",
         filename = "Activity"
       ))
-  
+
   variables$ActivityRawHM <- p
   p
 })
-
-
-
