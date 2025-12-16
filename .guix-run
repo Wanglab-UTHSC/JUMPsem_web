@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# fixate guix:
+. /home/wrk/opt/guix-pull-3-link/etc/profile
+
 startup=run_app.R
 echo Run: Rscript $startup
 
