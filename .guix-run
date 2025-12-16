@@ -4,7 +4,7 @@
 . /home/wrk/opt/guix-pull-3-link/etc/profile
 
 startup=run_app.R
-echo Run: Rscript $startup
+echo Running: Rscript $startup
 
 if [ ! -e $startup ]; then
   echo Start from git repo that contains shiny app
