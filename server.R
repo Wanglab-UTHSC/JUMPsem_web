@@ -10,6 +10,9 @@ source(file = "global.R",
 
 shinyServer(function(input,output,session){
   options(shiny.maxRequestSize = 500 * (1024 ^ 2))
+
+  # Remove generated text outputs when the Shiny session stops
+  onStop(clean_generated_files)
   
   
   
@@ -25,7 +28,6 @@ shinyServer(function(input,output,session){
 
 
 })
-
 
 
 

@@ -3,7 +3,7 @@
 This is a web page application for the package **[JUMPsem](https://github.com/Wanglab-UTHSC/JUMPsem)** developed by Xusheng's lab.
 Latest local version is available on github.
 
-The [online version](https://jumpsem.shinyapps.io/JUMPsem/) is available on shinyapps.io.
+The [online version](http://jumpsem.genenetwork.org/) is available on shinyapps.io.
 
 ---
 
@@ -32,7 +32,7 @@ In this **online version of JUMPsem package**, users could easily set up paramet
 1.  Click `Sample` tab.
 2.  Select data type and upload your substrate data. (**required**)
 3.  If you have group information file, please upload under `Group Inforamtion(Optional)`.
-4.  If you need whole proteomics data to normalize, please upload under `normalization data(optional)`.
+4.  If you need whole proteomics data to normalize phosphorylation data, please upload under `normalization data(optional)`.
 5.  Species of substrate is **required** to select under `Parameters`.
 6.  Additional parameters in the package could be adjusted under `Advanced Parameters`.
 7.  Click `Run JUMPsem Analysis` and wait for result!

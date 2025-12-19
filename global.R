@@ -4,9 +4,10 @@
 
 #install missing ones
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load("devtools","shiny","dplyr","shinycssloaders","ggplot2","heatmaply","shinyBS","shinyjs","scales","data.table","RColorBrewer","markdown","utils","shinyWidgets",
+pacman::p_load("shiny","dplyr","shinycssloaders","ggplot2","heatmaply","shinyBS","shinyjs","scales","data.table","RColorBrewer","markdown","utils","shinyWidgets",
                "tidyr","shinydashboard","plotly","gplots","DT","tidyverse","lavaan","EFAtools","dplyr")
-# pacman::p_load_current_gh("Wanglab-UTHSC/JUMPsem")
+#remotes::install_github("Wanglab-UTHSC/JUMPsem")
+library(JUMPsem)
 
 
 orgchoice <- c("Human" = "human",

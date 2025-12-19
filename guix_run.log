@@ -1,0 +1,208 @@
+Running: Rscript run_app.R
+/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/bin/Rcmd: line 40: sed: command not found
+export BASH_LOADABLES_PATH="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/lib/bash"
+export BIBINPUTS=".:/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/share/texmf/bibtex/bib:"
+export BSTINPUTS=".:/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/share/texmf/bibtex/bst:"
+export CPLUS_INCLUDE_PATH="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/include/c++:/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/include"
+export C_INCLUDE_PATH="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/include"
+export EDITOR="vi"
+export GUIX_ENVIRONMENT="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile"
+export GUIX_LOCPATH="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/lib/locale"
+export HOME="/home/aijun"
+export LANG="C.UTF-8"
+export LD_LIBRARY_PATH="/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/lib:/usr/local/lib:/gnu/store/qysmiprwgpnly3fjjzbydm29fi85ijrf-gfortran-14.3.0-lib/lib/gcc/x86_64-unknown-linux-gnu/14.3.0:/gnu/store/qysmiprwgpnly3fjjzbydm29fi85ijrf-gfortran-14.3.0-lib/lib:/gnu/store/xahxg29hd2h3k8lxik2nmb9fqxv1xr5l-tcl-8.6.12/lib:/gnu/store/i0063990ld4s0m8plf20a6jqayj03fwp-tk-8.6.12/lib:/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/lib:/usr/local/lib:/gnu/store/qysmiprwgpnly3fjjzbydm29fi85ijrf-gfortran-14.3.0-lib/lib/gcc/x86_64-unknown-linux-gnu/14.3.0:/gnu/store/qysmiprwgpnly3fjjzbydm29fi85ijrf-gfortran-14.3.0-lib/lib:/gnu/store/xahxg29hd2h3k8lxik2nmb9fqxv1xr5l-tcl-8.6.12/lib:/gnu/store/i0063990ld4s0m8plf20a6jqayj03fwp-tk-8.6.12/lib"
+export LIBRARY_PATH="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/lib"
+export LN_S="ln -s"
+export LOGNAME="aijun"
+export MAKE="make"
+export OBJCPLUS_INCLUDE_PATH="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/include/c++:/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/include"
+export OBJC_INCLUDE_PATH="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/include"
+export OLDPWD
+export PAGER="/gnu/store/f2rcir6yz0n74jaa6d0fm82f8flmwjnk-coreutils-9.1/bin/cat"
+export PATH="/bin:/usr/bin:/sbin:/usr/sbin:/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/bin:/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/sbin"
+export PWD="/home/aijun/services/jumpsem_web"
+export R_ARCH=""
+export R_BROWSER=""
+export R_BZIPCMD="/gnu/store/3m35da59fr3wwdy0imzi2jg29jd6lhlz-bzip2-1.0.8/bin/bzip2"
+export R_CMD="/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/bin/Rcmd"
+export R_DOC_DIR="/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/doc"
+export R_GZIPCMD="/gnu/store/vcmbby8alqahhhd5qnidpf5pbvr102jl-gzip-1.14/bin/gzip"
+export R_HOME="/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R"
+export R_INCLUDE_DIR="/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include"
+export R_LIBS="/home/aijun/services/jumpsem_web/lib:/home/aijun/.Rlibs:/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/site-library"
+export R_LIBS_SITE="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/site-library/"
+export R_LIBS_USER="/home/aijun/.Rlibs"
+export R_OSTYPE="unix"
+export R_PAPERSIZE="a4"
+export R_PDFVIEWER=""
+export R_PLATFORM="x86_64-unknown-linux-gnu"
+export R_PRINTCMD=""
+export R_RD4PDF="times,inconsolata,hyper"
+export R_SESSION_TMPDIR="/tmp/RtmpNdInoz"
+export R_SHARE_DIR="/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/share"
+export R_STRIP_SHARED_LIB="strip --strip-unneeded"
+export R_STRIP_STATIC_LIB="strip --strip-debug"
+export R_TEXI2DVICMD="/gnu/store/bcghmag3izwhk74g6cxf78qgr4jjp7g9-texinfo-6.8/bin/texi2dvi"
+export R_UNZIPCMD=""
+export R_VERSION="4.5.0"
+export R_ZIPCMD=""
+export SED="/gnu/store/5a3p82yj9nrj6rhk11f7b2sb84wirc2k-sed-4.9/bin/sed"
+export SHLVL="1"
+export TAR="/gnu/store/x5nk7jclncdrrsjhpmjjfl2z9p36bxyw-tar-1.35/bin/tar"
+export TEMP="/tmp"
+export TEMPDIR="/tmp"
+export TEXINPUTS=".:/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/share/texmf/tex/latex:"
+export TMP="/tmp"
+export TMPDIR="/tmp"
+export USER="aijun"
+* installing *source* package ‘data.table’ ...
+** this is package ‘data.table’ version ‘1.17.8’
+** package ‘data.table’ successfully unpacked and MD5 sums checked
+** using staged installation
+/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/bin/Rcmd: line 40: sed: command not found
+/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/bin/Rcmd: line 40: sed: command not found
+/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/bin/Rcmd: line 40: sed: command not found
+/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/bin/Rcmd: line 40: sed: command not found
+/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/bin/Rcmd: line 40: sed: command not found
+/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/bin/Rcmd: line 40: sed: command not found
+/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/bin/Rcmd: line 40: sed: command not found
+/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/bin/Rcmd: line 40: sed: command not found
+/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/bin/Rcmd: line 40: sed: command not found
+/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/bin/Rcmd: line 40: sed: command not found
+*** pkg-config is not installed.
+*** Compilation will now be attempted and if it works you can ignore this message. In
+*** particular, this should be the case on Mac where zlib is built in or pkg-config
+*** is not installed. However, if compilation fails, try 'locate zlib.h zconf.h' and
+*** ensure the zlib development library is installed :
+***   deb: zlib1g-dev (Debian, Ubuntu, ...)
+***   rpm: zlib-devel (Fedora, EPEL, ...)
+***   There is a zlib in brew for OSX but the built in zlib should work.
+*** Note that zlib is required to compile R itself so you may find the advice in the R-admin
+*** guide helpful regarding zlib. On Debian/Ubuntu, zlib1g-dev is a dependency of r-base as
+*** shown by 'apt-cache showsrc r-base | grep ^Build-Depends | grep zlib', and therefore
+*** 'sudo apt-get build-dep r-base' should be sufficient too.
+*** To silence this message, please ensure that :
+***   1) 'pkg-config --exists zlib' succeeds (i.e. $? -eq 0)
+***   2) 'pkg-config --libs zlib' contains -lz
+*** Compilation will now be attempted ...
+* checking if R installation supports OpenMP without any extra hints... yes
+./configure: line 172: sed: command not found
+./configure: line 176: sed: command not found
+./configure: line 177: sed: command not found
+*** Compilation without compression support in fwrite
+./configure: line 182: sed: command not found
+./configure: line 183: sed: command not found
+** libs
+using C compiler: ‘gcc (GCC) 15.2.0’
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c assign.c -o assign.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c between.c -o between.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c bmerge.c -o bmerge.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c chmatch.c -o chmatch.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c cj.c -o cj.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c coalesce.c -o coalesce.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c dogroups.c -o dogroups.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c fastmean.c -o fastmean.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c fcast.c -o fcast.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c fifelse.c -o fifelse.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c fmelt.c -o fmelt.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c forder.c -o forder.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c frank.c -o frank.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c fread.c -o fread.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c freadR.c -o freadR.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c froll.c -o froll.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c frollR.c -o frollR.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c frolladaptive.c -o frolladaptive.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c fsort.c -o fsort.o
+gcc -std=gnu23 -I"/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c fwrite.c -o fwrite.o
+fwrite.c:11:10: fatal error: zlib.h: No such file or directory
+   11 | #include <zlib.h>      // for compression to .gz
+      |          ^~~~~~~~
+compilation terminated.
+make: *** [/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/etc/Makeconf:202: fwrite.o] Error 1
+ERROR: compilation failed for package ‘data.table’
+* removing ‘/home/aijun/services/jumpsem_web/lib/data.table’
+Warning message:
+In install.packages("data.table_1.17.8.tar.gz", lib = "lib", repos = NULL,  :
+  installation of package ‘data.table_1.17.8.tar.gz’ had non-zero exit status
+Installing package into ‘/home/aijun/services/jumpsem_web/lib’
+(as ‘lib’ is unspecified)
+/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/bin/Rcmd: line 40: sed: command not found
+export BASH_LOADABLES_PATH="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/lib/bash"
+export BIBINPUTS=".:/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/share/texmf/bibtex/bib:"
+export BSTINPUTS=".:/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/share/texmf/bibtex/bst:"
+export CPLUS_INCLUDE_PATH="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/include/c++:/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/include"
+export C_INCLUDE_PATH="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/include"
+export EDITOR="vi"
+export GUIX_ENVIRONMENT="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile"
+export GUIX_LOCPATH="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/lib/locale"
+export HOME="/home/aijun"
+export LANG="C.UTF-8"
+export LD_LIBRARY_PATH="/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/lib:/usr/local/lib:/gnu/store/qysmiprwgpnly3fjjzbydm29fi85ijrf-gfortran-14.3.0-lib/lib/gcc/x86_64-unknown-linux-gnu/14.3.0:/gnu/store/qysmiprwgpnly3fjjzbydm29fi85ijrf-gfortran-14.3.0-lib/lib:/gnu/store/xahxg29hd2h3k8lxik2nmb9fqxv1xr5l-tcl-8.6.12/lib:/gnu/store/i0063990ld4s0m8plf20a6jqayj03fwp-tk-8.6.12/lib:/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/lib:/usr/local/lib:/gnu/store/qysmiprwgpnly3fjjzbydm29fi85ijrf-gfortran-14.3.0-lib/lib/gcc/x86_64-unknown-linux-gnu/14.3.0:/gnu/store/qysmiprwgpnly3fjjzbydm29fi85ijrf-gfortran-14.3.0-lib/lib:/gnu/store/xahxg29hd2h3k8lxik2nmb9fqxv1xr5l-tcl-8.6.12/lib:/gnu/store/i0063990ld4s0m8plf20a6jqayj03fwp-tk-8.6.12/lib"
+export LIBRARY_PATH="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/lib"
+export LN_S="ln -s"
+export LOGNAME="aijun"
+export MAKE="make"
+export OBJCPLUS_INCLUDE_PATH="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/include/c++:/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/include"
+export OBJC_INCLUDE_PATH="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/include"
+export OLDPWD
+export PAGER="/gnu/store/f2rcir6yz0n74jaa6d0fm82f8flmwjnk-coreutils-9.1/bin/cat"
+export PATH="/bin:/usr/bin:/sbin:/usr/sbin:/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/bin:/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/sbin"
+export PWD="/home/aijun/services/jumpsem_web"
+export R_ARCH=""
+export R_BROWSER=""
+export R_BZIPCMD="/gnu/store/3m35da59fr3wwdy0imzi2jg29jd6lhlz-bzip2-1.0.8/bin/bzip2"
+export R_CMD="/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/bin/Rcmd"
+export R_DOC_DIR="/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/doc"
+export R_GZIPCMD="/gnu/store/vcmbby8alqahhhd5qnidpf5pbvr102jl-gzip-1.14/bin/gzip"
+export R_HOME="/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R"
+export R_INCLUDE_DIR="/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/include"
+export R_LIBS="/home/aijun/services/jumpsem_web/lib:/home/aijun/.Rlibs:/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/site-library"
+export R_LIBS_SITE="/gnu/store/y6lixrgxhyd88n1kz26wh9wqb5vx9x33-profile/site-library/"
+export R_LIBS_USER="/home/aijun/.Rlibs"
+export R_OSTYPE="unix"
+export R_PAPERSIZE="a4"
+export R_PDFVIEWER=""
+export R_PLATFORM="x86_64-unknown-linux-gnu"
+export R_PRINTCMD=""
+export R_RD4PDF="times,inconsolata,hyper"
+export R_SESSION_TMPDIR="/tmp/RtmpNdInoz"
+export R_SHARE_DIR="/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/share"
+export R_STRIP_SHARED_LIB="strip --strip-unneeded"
+export R_STRIP_STATIC_LIB="strip --strip-debug"
+export R_TEXI2DVICMD="/gnu/store/bcghmag3izwhk74g6cxf78qgr4jjp7g9-texinfo-6.8/bin/texi2dvi"
+export R_UNZIPCMD=""
+export R_VERSION="4.5.0"
+export R_ZIPCMD=""
+export SED="/gnu/store/5a3p82yj9nrj6rhk11f7b2sb84wirc2k-sed-4.9/bin/sed"
+export SHLVL="1"
+export TAR="/gnu/store/x5nk7jclncdrrsjhpmjjfl2z9p36bxyw-tar-1.35/bin/tar"
+export TEMP="/tmp"
+export TEMPDIR="/tmp"
+export TEXINPUTS=".:/gnu/store/8ahzimkjx5xhdgir21z5rbj811q972qq-r-minimal-4.5.0/lib/R/share/texmf/tex/latex:"
+export TMP="/tmp"
+export TMPDIR="/tmp"
+export USER="aijun"
+* installing *source* package ‘JUMPsem’ ...
+** this is package ‘JUMPsem’ version ‘1.1.0’
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+Warning in scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  :
+  EOF within quoted string
+Warning in scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  :
+  EOF within quoted string
+** byte-compile and prepare package for lazy loading
+Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+  namespace ‘data.table’ 1.17.4 is being loaded, but >= 1.17.8 is required
+Calls: <Anonymous> ... withCallingHandlers -> loadNamespace -> namespaceImport -> loadNamespace
+Execution halted
+ERROR: lazy loading failed for package ‘JUMPsem’
+* removing ‘/home/aijun/services/jumpsem_web/lib/JUMPsem’
+Warning message:
+In install.packages("JUMPsem_1.1.0.tar.gz", repos = NULL, type = "source") :
+  installation of package ‘JUMPsem_1.1.0.tar.gz’ had non-zero exit status
+Loading required package: pacman
+Error in library(JUMPsem) : there is no package called ‘JUMPsem’
+Calls: source ... eval -> source -> withVisible -> eval -> eval -> library
+Execution halted
