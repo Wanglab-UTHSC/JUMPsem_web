@@ -142,8 +142,7 @@ observeEvent(input$jumpsemDataSampleRun,{
       DT::datatable(variables$Activity)
     }else{
       data <- variables$Activity
-      #data <- round(data, digits = 2)
-      DT::datatable(
+      dt <- DT::datatable(
         data,
         filter = "bottom",
         selection = 'single',
@@ -164,6 +163,11 @@ observeEvent(input$jumpsemDataSampleRun,{
         )
 
       )
+      numeric_cols <- names(data)[vapply(data, is.numeric, logical(1))]
+      if (length(numeric_cols) > 0) {
+        dt <- DT::formatRound(dt, columns = numeric_cols, digits = 2)
+      }
+      dt
     }
   })
 
@@ -186,8 +190,7 @@ observeEvent(input$jumpsemDataSampleRun,{
       DT::datatable(variables$Affinity)
     }else{
       data <- variables$Affinity
-      #data <- round(data, digits = 2)
-      DT::datatable(
+      dt <- DT::datatable(
         data,
         filter = "bottom",
         selection = 'single',
@@ -208,6 +211,11 @@ observeEvent(input$jumpsemDataSampleRun,{
         )
 
       )
+      numeric_cols <- names(data)[vapply(data, is.numeric, logical(1))]
+      if (length(numeric_cols) > 0) {
+        dt <- DT::formatRound(dt, columns = numeric_cols, digits = 2)
+      }
+      dt
     }
   })
 
@@ -223,8 +231,7 @@ observeEvent(input$jumpsemDataSampleRun,{
       DT::datatable(variables$Evaluations)
     }else{
       data <- variables$Evaluations
-      #data <- round(data, digits = 2)
-      DT::datatable(
+      dt <- DT::datatable(
         data,
         filter = "bottom",
         selection = 'single',
@@ -245,6 +252,11 @@ observeEvent(input$jumpsemDataSampleRun,{
         )
 
       )
+      numeric_cols <- names(data)[vapply(data, is.numeric, logical(1))]
+      if (length(numeric_cols) > 0) {
+        dt <- DT::formatRound(dt, columns = numeric_cols, digits = 2)
+      }
+      dt
     }
   })
 
@@ -593,8 +605,7 @@ observeEvent(input$submit,{
       DT::datatable(variables$Activity)
     }else{
       data <- variables$Activity
-      #data <- round(data, digits = 2)
-      DT::datatable(
+      dt <- DT::datatable(
         data,
         filter = "bottom",
         selection = 'single',
@@ -615,6 +626,11 @@ observeEvent(input$submit,{
         )
 
       )
+      numeric_cols <- names(data)[vapply(data, is.numeric, logical(1))]
+      if (length(numeric_cols) > 0) {
+        dt <- DT::formatRound(dt, columns = numeric_cols, digits = 2)
+      }
+      dt
     }
   })
 
@@ -630,8 +646,7 @@ observeEvent(input$submit,{
       DT::datatable(variables$Evaluations)
     }else{
       data <- variables$Evaluations
-      #data <- round(data, digits = 2)
-      DT::datatable(
+      dt <- DT::datatable(
         data,
         filter = "bottom",
         selection = 'single',
@@ -652,6 +667,11 @@ observeEvent(input$submit,{
         )
 
       )
+      numeric_cols <- names(data)[vapply(data, is.numeric, logical(1))]
+      if (length(numeric_cols) > 0) {
+        dt <- DT::formatRound(dt, columns = numeric_cols, digits = 2)
+      }
+      dt
     }
   })
 
@@ -669,8 +689,7 @@ observeEvent(input$submit,{
       DT::datatable(variables$Affinity)
     }else{
       data <- variables$Affinity
-      #data <- round(data, digits = 2)
-      DT::datatable(
+      dt <- DT::datatable(
         data,
         filter = "bottom",
         selection = 'single',
@@ -701,6 +720,11 @@ observeEvent(input$submit,{
         )
 
       )
+      numeric_cols <- names(data)[vapply(data, is.numeric, logical(1))]
+      if (length(numeric_cols) > 0) {
+        dt <- DT::formatRound(dt, columns = numeric_cols, digits = 2)
+      }
+      dt
     }
   })
 

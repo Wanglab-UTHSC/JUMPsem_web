@@ -27,6 +27,7 @@ dashboardPage(
     useShinyjs(),
     tags$head(
       includeCSS("theme.css"),
+      tags$link(rel = "icon", type = "image/png", href = "webicon.png"),
       tags$style(HTML("
         .my_class {
           font-weight: bold;
