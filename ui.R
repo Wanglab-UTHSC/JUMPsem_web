@@ -88,7 +88,7 @@ dashboardPage(
                   buttonLabel = "Upload...",
                   placeholder = "No file has been uploaded."
                 ),
-                helpText("If you want to normalize the raw data, please upload normalization data file."),
+                helpText("If you want to normalize the raw PTM data with whole proteome, please upload whole proteome data."),
                 footer = helpText("Text file in .txt/.csv format."),
                 #shinyDirButton('folder', 'Select a folder', 'Please select a folder for output result tables', FALSE)
               ),
@@ -114,24 +114,6 @@ dashboardPage(
                 ))
               )
             )
-          ),
-          fluidRow(
-            class = "rowhide",
-            box(
-              title = tagList(icon("info-circle"), "Group Information(optional)"),
-              solidHeader = TRUE,
-              width = NULL,
-              status = "primary",
-              fileInput(
-                "uploadjumpsemGroup",
-                "Upload Group Information",
-                accept = c("text/csv",
-                           "text/comma-separated-values,text/plain",
-                           ".csv"),
-                buttonLabel = "Upload...",
-                placeholder = "No file has been uploaded."
-              )
-          )
           ),
           fluidRow(
             class = "rowhide",
@@ -195,11 +177,11 @@ dashboardPage(
                            max = 1,
                            step = 0.01,
                            width = NULL),
-              # bsTooltip(
-              #   id = "jumpsemkmooff",
-              #   title = "Set up KMO cutoff value 0-1. Default is 0.",
-              #   placement = "right"
-              # ),
+              bsTooltip(
+                id = "jumpsemkmooff",
+                title = "Set up KMO cutoff value 0-1. Default is 0.",
+                placement = "right"
+              ),
               radioButtons(
                 inputId = "jumpsemlog2",
                 label = "Need substrate data log 2 transformation?",
@@ -213,13 +195,43 @@ dashboardPage(
                 choices = c("Yes",
                             "No"),
                 selected = "No"
+              ),
+              bsTooltip(
+                id = "jumpsemlog2",
+                title = "Need program to do log2 transforming of the input file or not."
+              ),
+              bsTooltip(
+                id = "jumpsemWholelog2",
+                title = "Need program to do log2 transforming of the whole proteome input file or not."
+              ),
+              checkboxInput(
+                inputId = "mdsite",
+                label = "Map precise phosphorylated modification sites?",
+                value = TRUE
+              ),
+              bsTooltip(
+                id = "mdsite",
+                title = "Mapping with precise phosphorylated modification sites or not."
+              ),
+              checkboxInput(
+                inputId = "relative.norm.p",
+                label = "Relative normalization of PTM file?",
+                value = TRUE
+              ),
+              bsTooltip(
+                id = "relative.norm.p",
+                title = "Perform relative normalization on the PTM input file or not."
+              ),
+              checkboxInput(
+                inputId = "relative.norm.w",
+                label = "Relative normalization of whole proteome input?",
+                value = TRUE
+              ),
+              bsTooltip(
+                id = "relative.norm.w",
+                title = "Need program to do relative normalization of the whole proteomic input file or not. Default is TRUE."
               )
-#               bsTooltip(
-#                 id = "jumpsemlog2",
-#                 title = "Need program to do log2 transforming of the input
-# file or not."
-#               )
-              
+
             )
           )
         ),

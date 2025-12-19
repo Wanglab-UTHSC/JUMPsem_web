@@ -3,7 +3,7 @@
 This is a web page application for the package **[JUMPsem](https://github.com/Wanglab-UTHSC/JUMPsem)** developed by Xusheng's lab.
 Latest local version is available on github.
 
-The [online version](http://jumpsem.genenetwork.org/) is available on shinyapps.io.
+The [online version](http://jumpsem.genenetwork.org/) is available on genenetwork.org.
 
 ---
 

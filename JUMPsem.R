@@ -59,6 +59,10 @@ observeEvent(input$jumpsemDataSampleRun,{
     value = 30
   )
 
+  mdsite <- isTRUE(input$mdsite)
+  relative_norm_p <- isTRUE(input[["relative.norm.p"]])
+  relative_norm_w <- isTRUE(input[["relative.norm.w"]])
+
   if(input$jumpsemSampleData == "pspSample"){
     result <- JUMPsem(input = variables$jumpsemRaw,
                       datatype = "psp",
@@ -66,18 +70,27 @@ observeEvent(input$jumpsemDataSampleRun,{
                       enzyme.organism = c("human", "mouse", "rat"),
                       input.log2.norm = TRUE,
                       whole.log2.trans = TRUE,
+                      mdsite = mdsite,
+                      relative.norm.p = relative_norm_p,
+                      relative.norm.w = relative_norm_w,
                       motif = motif_example,
                       whole.proteome = wholeProteome_example)
   }else if(input$jumpsemSampleData == "ubiSample"){
     result <- JUMPsem(input = variables$jumpsemRaw,
                    datatype = "ubi",
                    organism = "human",
-                   input.log2.norm = T)
+                   input.log2.norm = T,
+                   mdsite = mdsite,
+                   relative.norm.p = relative_norm_p,
+                   relative.norm.w = relative_norm_w)
   }else{
     result <- JUMPsem(input = variables$jumpsemRaw,
                    datatype = "ace",
                    organism = "human",
-                   input.log2.norm = FALSE)
+                   input.log2.norm = FALSE,
+                   mdsite = mdsite,
+                   relative.norm.p = relative_norm_p,
+                   relative.norm.w = relative_norm_w)
   }
 
   updateProgressBar(
@@ -393,43 +406,6 @@ output$jumpsemRawTable <- renderUI({
 })
 
 
-#----------Group info(optional)------------
-observeEvent(input$uploadjumpsemGroup,{
-
-  tryCatch(
-    {
-      #read in uploaded group information
-      jumpsemgroup <- data.frame(fread(input$uploadjumpsemGroup$datapath))
-
-      jumpsemRun$jumpsemRunValue <- FALSE
-
-      #store in variables
-      variables$jumpsemgroup <- jumpsemgroup
-      showNotification("Received uploaded file.", type = "message")
-
-    },
-    error = function(e) {
-      sendSweetAlert(
-        session = session,
-        title = "Input data error!",
-        text = as.character(message(e)),
-        type = "error"
-      )
-      return()
-    },
-    warning = function(w) {
-      sendSweetAlert(
-        session = session,
-        title = "Input data warning!",
-        text = "Some error is in your dataset, it maybe cause some problem we cannot expected.",
-        type = "warning"
-      )
-      return()
-    }
-  )
-
-})
-
 
 
 #-----------Result----------
@@ -450,6 +426,9 @@ observeEvent(input$runjumpsem,{
   else
     NULL
   enzyme_org <- input$enzyme_org
+  mdsite <- isTRUE(input$mdsite)
+  relative_norm_p <- isTRUE(input[["relative.norm.p"]])
+  relative_norm_w <- isTRUE(input[["relative.norm.w"]])
   checkwhole <- ifelse(nrow(variables$jumpsemnorm) == 0,yes = "None", no = "Yes")
 
   sel <- names(orgchoice)[orgchoice %in% enzyme_org]
@@ -467,6 +446,9 @@ observeEvent(input$runjumpsem,{
     tags$p(tags$b("KMO Cutoff"),": ", kmooff),
     tags$p(tags$b("Need substrate data log 2 transformation?"), input$jumpsemlog2),
     tags$p(tags$b("Need whole proteome data log 2 transformation?"), input$jumpsemWholelog2),
+    tags$p(tags$b("Map precise modification sites?"), ifelse(mdsite, "Yes", "No")),
+    tags$p(tags$b("Relative normalization of PTM file?"), ifelse(relative_norm_p, "Yes", "No")),
+    tags$p(tags$b("Relative normalization of whole proteome input?"), ifelse(relative_norm_w, "Yes", "No")),
     span("Click ",tags$b("Cancel "), "to modify your choice or ", tags$b("Submit "), "to run jumpsem analysis."),
 
     easyClose = T,

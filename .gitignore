@@ -5,8 +5,8 @@ lib/
 
 # Generated analysis outputs
 Activity*.txt
-affinity*.txt
-eval_table*.txt
+Affinity*.txt
+Eval_table*.txt
 
 # Optional: common macOS metadata files
 .DS_Store
